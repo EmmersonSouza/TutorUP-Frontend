@@ -1,0 +1,709 @@
+{
+  "route": "/register/responsavel",
+  "page_name": "User Registration (Usuario → Beneficiario)",
+  "purpose": "Guide users through a clear, stress-free registration process that explains the user-beneficiary relationship and collects necessary information without overwhelming them",
+
+  "analysis": {
+    "current_problems": [
+      "Step 1 contains 95% of the entire form - massive cognitive overload",
+      "All user info + optional beneficiary info crammed into one endless scroll",
+      "Document uploads (photo + selfie) mixed in with basic fields",
+      "Password fields awkwardly placed in the middle of the form",
+      "Beneficiary toggle is vague - 'Para beneficiário?' doesn't explain the relationship",
+      "No visual guidance or illustrations to reduce form anxiety",
+      "Stepper shows 3 steps but only Step 1 has real work",
+      "Conditional fields appear/disappear abruptly without smooth transitions",
+      "No clear explanation of WHY we need certain information",
+      "Success screen is plain and doesn't celebrate completion",
+      "No review step before final submission",
+      "Maximum 3 beneficiaries only mentioned in button text"
+    ],
+    "ux_flaws": [
+      "Users don't understand usuario → beneficiario relationship upfront",
+      "No progress indication within the massive Step 1",
+      "Too many decisions at once (toggle switches, add/remove buttons, conditional fields)",
+      "Document upload section has no visual examples or guidance",
+      "No way to save progress and come back later",
+      "Error messages appear far from their input fields on long forms",
+      "Users can't review all entered data before submitting",
+      "No clear value proposition - why should users complete this lengthy process?",
+      "Special needs section feels clinical and impersonal",
+      "School-age toggle doesn't auto-detect based on age"
+    ],
+    "ui_inconsistencies": [
+      "Generic shadcn cards without custom branding",
+      "No illustrations or visual storytelling",
+      "Beneficiary cards use muted background (looks like disabled state)",
+      "File upload components lack personality and guidance",
+      "No consistent spacing between form sections",
+      "Switch components look too technical for general audience",
+      "No visual differentiation between primary user and beneficiaries",
+      "Terms screen is text-heavy with no visual breaks"
+    ]
+  },
+
+  "design_strategy": {
+    "visual_identity": "Warm, welcoming flat design with purple (#5B21B6) as primary, coral (#FB7185) for CTAs, and cream (#FFF7ED) backgrounds. Each step gets a custom flat illustration that explains what information is being collected and why. Use friendly, conversational copy throughout.",
+
+    "layout_approach": "Multi-step wizard with clear progress indication. Break the form into 7 logical steps: (1) Terms, (2) Your Info, (3) Your Documents, (4) Beneficiary Decision, (5) Beneficiary Details (if yes), (6) Review & Confirm, (7) Success. Each step fits within one viewport (minimal scrolling).",
+
+    "component_hierarchy": "Illustration at top → Step title → Friendly explanation → Form fields → Navigation buttons at bottom. Maximum 5 input fields per step to reduce cognitive load.",
+
+    "usuario_beneficiario_explanation": "Add an explainer card at the start: 'Você está cadastrando sua conta como USUÁRIO. Você pode adicionar BENEFICIÁRIOS (pessoas que receberão as aulas) durante ou após este cadastro.' Use simple icons to show the relationship.",
+
+    "illustration_strategy": "7 custom flat illustrations: (1) Document/checkmark for terms, (2) Person icon for user info, (3) ID card + camera for documents, (4) Two people icons for beneficiary decision, (5) Child with backpack for beneficiary details, (6) Checklist for review, (7) Celebration for success.",
+
+    "mobile_differences": "Same step structure but with: Full-screen steps (no sidebar stepper), swipe gestures between steps, native file picker integration, larger touch targets (min 48px), floating bottom navigation bar, progress bar at top."
+  },
+
+  "desktop_structure": {
+    "viewport": "1024px optimal, max-width 720px for form content",
+    "global_layout": "Centered container with left sidebar showing vertical stepper, main content area on right",
+
+    "sections": [
+      {
+        "name": "Step 0 - Terms & Introduction",
+        "layout": "Single column, max-width 680px, centered",
+        "components": [
+          {
+            "element": "Illustration",
+            "structure": [
+              "Flat illustration (240x240px) at top-center",
+              "Theme: Document with checkmark and TutorUP logo badge",
+              "Colors: Purple document, coral checkmark, cream background"
+            ]
+          },
+          {
+            "element": "Content Card",
+            "structure": [
+              "White bg, rounded-16px, p-48px, shadow-md",
+              "H1: 'Bem-vindo ao TutorUP!' (32px, bold, center, mb-16px)",
+              "Subtitle: 'Antes de começar, entenda como funciona:' (16px, gray-600, center, mb-32px)",
+              "Explainer box:",
+              "  - Light purple bg (#F3E8FF), rounded-12px, p-24px, mb-32px",
+              "  - Two-column grid:",
+              "    • Left: Icon of person with 'VOCÊ' label → 'Cadastra a conta como usuário'",
+              "    • Right: Icon of multiple people with 'BENEFICIÁRIOS' label → 'Pessoas que receberão as aulas'",
+              "  - Below: 'Você pode adicionar até 3 beneficiários agora ou depois.' (14px, center)",
+              "Terms scrollbox:",
+              "  - Cream bg, rounded-12px, p-24px, max-height-320px, overflow-y-auto, mb-24px",
+              "  - Simplified terms content with headings in purple",
+              "Checkbox row:",
+              "  - Large checkbox (24x24px), purple accent",
+              "  - Label: 'Li e aceito os Termos de Uso e Política de Privacidade' (16px)",
+              "  - Link to full terms in new tab (coral color)",
+              "Error message: Red text, 14px, mb-16px if validation fails",
+              "CTA: 'Começar cadastro' (full-width, purple bg, white text, py-16px, rounded-12px)"
+            ]
+          }
+        ],
+        "spacing": "py-64px",
+        "background": "Cream (#FFF7ED)"
+      },
+
+      {
+        "name": "Step 1 - Your Information",
+        "layout": "Two-column: Left sidebar (stepper) + Right content area",
+        "components": [
+          {
+            "element": "Left Sidebar (persistent across Steps 1-6)",
+            "structure": [
+              "Fixed position on left, width-280px, pr-40px",
+              "Vertical stepper showing all steps",
+              "Active step: Purple circle (40px) with white number",
+              "Completed steps: Purple circle with white checkmark",
+              "Upcoming steps: Gray circle with gray number",
+              "Step labels below each circle (14px)",
+              "Connecting line between steps (2px, purple for completed, gray for upcoming)"
+            ]
+          },
+          {
+            "element": "Right Content Area",
+            "structure": [
+              "Illustration: Person filling form (180x180px, top-center, mb-32px)",
+              "H2: 'Suas informações pessoais' (28px, bold, mb-12px)",
+              "Subtitle: 'Precisamos de alguns dados para criar sua conta.' (16px, gray-600, mb-32px)",
+              "Form fields (white card, p-32px, rounded-16px):",
+              "  - Nome completo (full-width input)",
+              "  - Email (full-width input)",
+              "  - Telefone (masked input, phone format)",
+              "  - Endereço completo (full-width input)",
+              "  - Password (half-width, with eye toggle)",
+              "  - Confirm Password (half-width)",
+              "Each field:",
+              "  - Label: 14px, gray-700, mb-8px",
+              "  - Input: 16px, py-12px, px-16px, border-2 border-gray-200, focus:border-purple-600, rounded-8px",
+              "  - Error text: 12px, coral color, mt-4px",
+              "Navigation:",
+              "  - Back button: Outline style, left (gray)",
+              "  - Next button: Purple bg, right ('Próximo →')"
+            ]
+          }
+        ],
+        "spacing": "py-48px",
+        "background": "White"
+      },
+
+      {
+        "name": "Step 2 - Your Documents",
+        "layout": "Sidebar + Content (same structure)",
+        "components": [
+          {
+            "element": "Content Area",
+            "structure": [
+              "Illustration: ID card + camera icon (180x180px, mb-32px)",
+              "H2: 'Verificação de identidade' (28px, bold, mb-12px)",
+              "Subtitle: 'Para sua segurança e dos beneficiários, precisamos verificar sua identidade.' (16px, gray-600, mb-32px)",
+              "Explainer box (light purple bg, p-20px, rounded-12px, mb-32px):",
+              "  - Icon: Shield with checkmark",
+              "  - Text: 'Suas informações são criptografadas e nunca compartilhadas com terceiros.'",
+              "Upload sections:",
+              "  1. Document Upload:",
+              "     - Label: 'Foto do seu CPF ou RG' (16px, bold, mb-8px)",
+              "     - Upload area: Dashed border (purple-300), rounded-12px, p-40px, hover:bg-purple-50",
+              "     - Icon: Upload cloud (coral)",
+              "     - Text: 'Clique para fazer upload ou arraste aqui'",
+              "     - Supported: 'JPG, PNG ou PDF (máx. 5MB)'",
+              "     - Preview thumbnail if uploaded",
+              "  2. Selfie Upload:",
+              "     - Label: 'Selfie segurando o documento' (16px, bold, mb-8px)",
+              "     - Same upload area style",
+              "     - Example image shown (small illustration of person holding ID)",
+              "Navigation: Back + Next ('Próximo →')"
+            ]
+          }
+        ],
+        "spacing": "py-48px",
+        "background": "White"
+      },
+
+      {
+        "name": "Step 3 - Beneficiary Decision",
+        "layout": "Sidebar + Content",
+        "components": [
+          {
+            "element": "Content Area",
+            "structure": [
+              "Illustration: Adult + child icons with heart (200x200px, mb-32px)",
+              "H2: 'Quem receberá as aulas?' (28px, bold, mb-12px)",
+              "Subtitle: 'Você pode cadastrar beneficiários agora ou adicionar depois no seu painel.' (16px, gray-600, mb-32px)",
+              "Decision cards (two options, grid-cols-2, gap-20px):",
+              "  Card 1 - 'Cadastrar agora':",
+              "    - White bg, border-2, rounded-16px, p-32px, cursor-pointer",
+              "    - Hover: border-purple-600, shadow-md",
+              "    - Selected: border-purple-600, bg-purple-50",
+              "    - Icon: UserPlus (coral, 48px, mb-16px)",
+              "    - Title: 'Cadastrar beneficiários agora' (18px, bold, mb-8px)",
+              "    - Description: 'Adicione de 1 a 3 beneficiários durante este cadastro.' (14px, gray-600)",
+              "    - Radio button indicator (top-right corner)",
+              "  Card 2 - 'Cadastrar depois':",
+              "    - Same style as Card 1",
+              "    - Icon: Clock (purple, 48px)",
+              "    - Title: 'Adicionar depois'",
+              "    - Description: 'Pule esta etapa e adicione beneficiários quando quiser no painel.'",
+              "Info note (cream bg, p-16px, rounded-8px, mt-24px):",
+              "  - Icon: Info circle (purple)",
+              "  - Text: 'Você pode adicionar, editar ou remover beneficiários a qualquer momento.'",
+              "Navigation: Back + Next ('Continuar →')"
+            ]
+          }
+        ],
+        "spacing": "py-48px",
+        "background": "Cream (#FFF7ED)"
+      },
+
+      {
+        "name": "Step 4 - Beneficiary Details (Conditional - only if 'Cadastrar agora')",
+        "layout": "Sidebar + Content with dynamic cards",
+        "components": [
+          {
+            "element": "Content Area",
+            "structure": [
+              "Illustration: Child with backpack and books (180x180px, mb-32px)",
+              "H2: 'Informações do(s) beneficiário(s)' (28px, bold, mb-12px)",
+              "Subtitle: 'Adicione até 3 beneficiários. Você pode editar ou adicionar mais depois.' (16px, gray-600, mb-32px)",
+              "Tabs for multiple beneficiaries:",
+              "  - Tab bar: Horizontal pills (purple bg for active, gray for inactive)",
+              "  - Tab 1: 'Beneficiário 1'",
+              "  - Tab 2: 'Beneficiário 2' (appears after adding)",
+              "  - Tab 3: 'Beneficiário 3' (appears after adding)",
+              "Current beneficiary card (white bg, rounded-16px, p-32px):",
+              "  - Delete button (top-right, if > 1 beneficiary): Ghost button with Trash icon (coral)",
+              "  - Fields (all with 16px spacing between):",
+              "    • Nome completo (full-width)",
+              "    • Grid-cols-2: Data de nascimento (date picker) + Sexo (select)",
+              "    • Tipo de Documento (select: CPF/RG/Passaporte - optional)",
+              "    • Número do Documento (conditional masked input based on type)",
+              "    • Descrição da situação (textarea, min-height-120px, placeholder with examples)",
+              "  - Toggle card 1 (cream bg, p-20px, rounded-12px, mt-16px):",
+              "    • Left: 'Está em idade escolar?' + subtitle (14px gray)",
+              "    • Right: Switch (purple accent)",
+              "  - Conditional fields (if school-age = true):",
+              "    • Escola (full-width)",
+              "    • Série/Ano (select with all grades)",
+              "  - Toggle card 2 (cream bg, p-20px, rounded-12px, mt-16px):",
+              "    • Left: 'Possui necessidades especiais?' + subtitle",
+              "    • Right: Switch",
+              "  - Conditional fields (if special-needs = true, light purple bg, p-20px, rounded-12px):",
+              "    • Categoria (select: Fala/Mobilidade/Cognitiva/Outra)",
+              "    • Detalhes (textarea)",
+              "Add Beneficiary button (if < 3):",
+              "  - Outline style, full-width, mt-24px",
+              "  - Icon: Plus",
+              "  - Text: 'Adicionar outro beneficiário (X/3)'",
+              "Navigation: Back + Next ('Próximo →' or 'Revisar cadastro →' if done)"
+            ]
+          }
+        ],
+        "spacing": "py-48px",
+        "background": "White",
+        "note": "This step is SKIPPED entirely if user chose 'Adicionar depois' in Step 3"
+      },
+
+      {
+        "name": "Step 5 - Review & Confirm",
+        "layout": "Sidebar + Content",
+        "components": [
+          {
+            "element": "Content Area",
+            "structure": [
+              "Illustration: Checklist with checkmarks (180x180px, mb-32px)",
+              "H2: 'Revise suas informações' (28px, bold, mb-12px)",
+              "Subtitle: 'Confira se está tudo correto antes de finalizar.' (16px, gray-600, mb-32px)",
+              "Review sections (accordion style, each expandable):",
+              "  Section 1 - 'Suas informações':",
+              "    - Header: Purple bg, p-16px, rounded-top-12px",
+              "    - Collapsed: Shows summary (name + email)",
+              "    - Expanded: All fields in read-only format with 'Editar' link (goes back to Step 1)",
+              "    - Fields: Nome, Email, Telefone, Endereço",
+              "  Section 2 - 'Documentos':",
+              "    - Shows thumbnail previews of uploaded files",
+              "    - 'Editar' link goes to Step 2",
+              "  Section 3 - 'Beneficiários' (if applicable):",
+              "    - Shows summary cards for each beneficiary",
+              "    - Card: White bg, border, p-16px, rounded-8px",
+              "    - Shows: Name, age, school (if applicable), special needs (if applicable)",
+              "    - 'Editar' link goes to Step 4",
+              "Final confirmation checkbox:",
+              "  - Cream bg, p-20px, rounded-12px, mt-32px",
+              "  - Large checkbox + Label: 'Confirmo que todas as informações estão corretas' (16px)",
+              "Navigation: Back + Submit ('Finalizar cadastro →', disabled until checkbox checked)"
+            ]
+          }
+        ],
+        "spacing": "py-48px",
+        "background": "Cream (#FFF7ED)"
+      },
+
+      {
+        "name": "Step 6 - Success",
+        "layout": "Full-width centered content (no sidebar)",
+        "components": [
+          {
+            "element": "Success Card",
+            "structure": [
+              "White card, max-width-600px, centered, rounded-24px, p-64px, shadow-2xl",
+              "Illustration: Celebration with confetti (280x280px, center, mb-32px)",
+              "Theme: Person with raised arms, confetti, stars, checkmark badge",
+              "Icon: Large checkmark in purple circle (80px, mb-24px)",
+              "H2: 'Cadastro concluído!' (36px, bold, center, mb-16px)",
+              "Success message:",
+              "  - If has beneficiários: 'Sua conta foi criada com sucesso! Agora você pode agendar aulas de reforço para seus beneficiários.'",
+              "  - If no beneficiários: 'Sua conta foi criada! Você pode adicionar beneficiários a qualquer momento no seu painel.'",
+              "  - Text: 18px, gray-600, center, line-height-1.6, mb-32px",
+              "Next steps box (light purple bg, p-24px, rounded-12px, mb-32px):",
+              "  - Title: 'Próximos passos:' (16px, bold, mb-12px)",
+              "  - Checklist with icons:",
+              "    • '✓ Explorar professores disponíveis'",
+              "    • '✓ Agendar sua primeira aula'",
+              "    • '✓ Configurar preferências de notificação'",
+              "CTA button:",
+              "  - 'Ir para o painel' (purple bg, white text, 18px, py-16px, px-48px, rounded-12px, shadow-md)",
+              "  - Icon: ArrowRight",
+              "Secondary link:",
+              "  - 'Explorar professores' (coral color, 16px, underline on hover, center, mt-16px)"
+            ]
+          }
+        ],
+        "spacing": "py-80px",
+        "background": "Cream (#FFF7ED) with subtle confetti pattern (optional decorative)"
+      }
+    ],
+
+    "stepper_design": {
+      "style": "Vertical sidebar stepper (visible Steps 1-5)",
+      "steps": [
+        { "number": 1, "label": "Suas informações" },
+        { "number": 2, "label": "Documentos" },
+        { "number": 3, "label": "Beneficiários" },
+        { "number": 4, "label": "Detalhes" },
+        { "number": 5, "label": "Revisar" }
+      ],
+      "states": {
+        "active": "Purple-600 circle (40px) with white number, purple-600 label",
+        "completed": "Purple-600 circle with white checkmark, purple-600 label",
+        "upcoming": "Gray-300 circle with gray-600 number, gray-600 label"
+      },
+      "connector_line": "2px solid, purple-600 for completed segments, gray-300 for upcoming"
+    }
+  },
+
+  "mobile_structure": {
+    "viewport": "375px - 768px",
+    "key_differences": [
+      "Full-screen steps (no sidebar stepper)",
+      "Horizontal progress bar at top (percentage-based or step dots)",
+      "Swipe gestures to go back/forward between steps",
+      "Native file picker and camera integration for document uploads",
+      "Floating bottom navigation bar (sticky, shadow-top)",
+      "All two-column layouts become single-column stacks",
+      "Reduce padding: 20px instead of 32-48px",
+      "Larger touch targets: minimum 48px height for all buttons and switches"
+    ],
+
+    "sections": [
+      {
+        "name": "Mobile Navigation Pattern",
+        "structure": [
+          "Top: Horizontal step indicator (dots or progress bar)",
+          "  - Active step: Purple dot (12px)",
+          "  - Completed: Purple dot with mini checkmark",
+          "  - Upcoming: Gray dot (8px)",
+          "  - Connected by thin line",
+          "Bottom: Sticky nav bar (white bg, border-top, shadow-top, p-16px)",
+          "  - Back button: Left side, outline style, icon + 'Voltar'",
+          "  - Next button: Right side, purple bg, 'Próximo →' or 'Continuar'"
+        ]
+      },
+
+      {
+        "name": "Mobile Step 0 - Terms",
+        "layout": "Full-screen vertical scroll",
+        "components": [
+          {
+            "element": "Content",
+            "structure": [
+              "Illustration: 200x200px, center, mt-40px, mb-24px",
+              "H1: 'Bem-vindo!' (28px, center, mb-12px)",
+              "Subtitle: (14px, center, mb-24px)",
+              "Explainer box:",
+              "  - Single column stack (not grid)",
+              "  - Each section stacks vertically with icon above text",
+              "  - Reduced padding: p-16px",
+              "Terms scrollbox: max-height-240px, mb-20px",
+              "Checkbox: Larger (28x28px), mb-20px",
+              "CTA: Full-width, 48px height, 16px text"
+            ]
+          }
+        ],
+        "spacing": "px-20px, py-32px"
+      },
+
+      {
+        "name": "Mobile Step 1 - Your Info",
+        "layout": "Full-screen, single column",
+        "components": [
+          {
+            "element": "Form Fields",
+            "structure": [
+              "Illustration: 160x160px, center, mb-24px",
+              "H2: 24px, mb-8px",
+              "Subtitle: 14px, mb-24px",
+              "Each input: Full-width, 48px height, 16px text, mb-16px",
+              "Password grid: Becomes vertical stack (not side-by-side)",
+              "Eye toggle: 40px tap target",
+              "Labels: 14px, mb-8px",
+              "Error messages: 12px, mt-4px"
+            ]
+          }
+        ],
+        "spacing": "px-20px, py-24px, pb-80px (for sticky nav)"
+      },
+
+      {
+        "name": "Mobile Step 2 - Documents",
+        "layout": "Full-screen, single column",
+        "components": [
+          {
+            "element": "Upload Areas",
+            "structure": [
+              "Illustration: 160x160px, center, mb-24px",
+              "Each upload area:",
+              "  - Full-width, min-height-160px",
+              "  - p-24px, mb-16px",
+              "  - Large upload icon (64px)",
+              "  - Text: 14px, center",
+              "  - Tap triggers native file picker + camera option",
+              "Preview thumbnails: 80x80px, rounded-8px"
+            ]
+          }
+        ],
+        "spacing": "px-20px, py-24px"
+      },
+
+      {
+        "name": "Mobile Step 3 - Beneficiary Decision",
+        "layout": "Full-screen, single column",
+        "components": [
+          {
+            "element": "Decision Cards",
+            "structure": [
+              "Illustration: 180x180px, center, mb-24px",
+              "Cards: Stack vertically (not grid)",
+              "Each card:",
+              "  - Full-width, mb-16px",
+              "  - p-24px, min-height-140px",
+              "  - Icon: 40px, mb-12px",
+              "  - Title: 16px, bold, mb-8px",
+              "  - Description: 14px, line-height-1.5",
+              "  - Radio button: 24px, top-right"
+            ]
+          }
+        ],
+        "spacing": "px-20px, py-24px"
+      },
+
+      {
+        "name": "Mobile Step 4 - Beneficiary Details",
+        "layout": "Full-screen with horizontal swipe tabs",
+        "components": [
+          {
+            "element": "Beneficiary Tabs",
+            "structure": [
+              "Horizontal scrollable tab bar at top (snap-scroll)",
+              "Each tab: min-width-120px, 40px height, center text",
+              "Active tab: Purple bg, white text",
+              "Swipe between beneficiaries (like Instagram stories)",
+              "All inputs: Full-width, 48px height",
+              "Grid-cols-2 fields: Become single column stack on small screens (<400px)",
+              "Toggles: Full-width cards, 56px height (larger tap area)",
+              "Textarea: min-height-120px",
+              "Add beneficiary button: Full-width, 48px, outline, mb-80px"
+            ]
+          }
+        ],
+        "spacing": "px-20px, py-24px"
+      },
+
+      {
+        "name": "Mobile Step 5 - Review",
+        "layout": "Full-screen vertical scroll",
+        "components": [
+          {
+            "element": "Review Sections",
+            "structure": [
+              "Illustration: 160x160px, center, mb-24px",
+              "Accordion sections: Full-width, mb-12px",
+              "Section headers: 48px height, p-16px, tap to expand/collapse",
+              "Expanded content: p-16px, white bg",
+              "Edit links: Coral color, 14px, right-aligned",
+              "Final checkbox card: p-16px, 56px min-height (larger tap area)",
+              "Submit button: Full-width, 48px, purple bg, in sticky bottom nav"
+            ]
+          }
+        ],
+        "spacing": "px-20px, py-24px, pb-80px"
+      },
+
+      {
+        "name": "Mobile Step 6 - Success",
+        "layout": "Full-screen centered",
+        "components": [
+          {
+            "element": "Success Content",
+            "structure": [
+              "Illustration: 240x240px, center, mt-40px, mb-32px",
+              "Checkmark circle: 64px, mb-20px",
+              "H2: 28px, center, mb-12px",
+              "Message: 16px, center, line-height-1.6, mb-24px",
+              "Next steps box: p-20px, mb-24px",
+              "CTA button: Full-width, 48px, mb-12px",
+              "Secondary link: 16px, center, coral color"
+            ]
+          }
+        ],
+        "spacing": "px-20px, py-32px"
+      }
+    ],
+
+    "mobile_interactions": [
+      "Swipe right to go back, swipe left to go forward (between steps)",
+      "Tap outside modal to dismiss (for selects and date pickers)",
+      "Pull-to-refresh disabled during form completion",
+      "Auto-scroll to first error field on validation fail",
+      "Haptic feedback on switch toggle and checkbox selection",
+      "Keyboard auto-focus on next field when user taps 'Next' on keyboard",
+      "Native date picker (not custom calendar)",
+      "Native file picker with camera option for document uploads"
+    ]
+  },
+
+  "illustrations": {
+    "total_needed": 7,
+    "style_guide": "Flat geometric design with simple shapes, no gradients, soft shadows only. Use purple (#5B21B6), coral (#FB7185), cream (#FFF7ED). Characters have circular heads, dot eyes, curved smile lines. Academic elements: books, documents, checkmarks, backpacks.",
+
+    "illustration_1": {
+      "name": "Terms & Welcome",
+      "description": "A friendly document icon with a large checkmark badge and TutorUP logo. Floating around: shield icon, lock icon, checkmark symbols. Warm, trustworthy feel.",
+      "prompt": "A modern flat-style illustration of a document with a large checkmark badge. Clean geometric document shape with TutorUP branding, floating shield and lock icons around it. Color palette: deep purple, coral pink, cream background. Minimalist professoral academic theme, no gradients, soft shadows, trustworthy composition.",
+      "dimensions": "240x240px (desktop), 200x200px (mobile)"
+    },
+
+    "illustration_2": {
+      "name": "User Information",
+      "description": "A simplified geometric person icon filling out a form on a laptop. Form has empty lines representing input fields. Pencil icon nearby. Clean and organized feel.",
+      "prompt": "A modern flat-style illustration showing a geometric person sitting at laptop filling a form. Simple circular head with dot eyes, curved smile. Laptop screen shows form lines. Pencil icon nearby. Color palette: purple, coral, cream. Minimalist style, no gradients, soft shadows, organized composition.",
+      "dimensions": "180x180px (desktop), 160x160px (mobile)"
+    },
+
+    "illustration_3": {
+      "name": "Document Verification",
+      "description": "An ID card with a photo placeholder and a camera icon. Shield with checkmark overlapping to show security. Professional and secure feeling.",
+      "prompt": "A modern flat-style illustration of an ID card with camera icon. Geometric ID card shape with photo placeholder, camera icon, and shield with checkmark badge. Color palette: purple, coral, cream. Minimalist secure verification theme, no gradients, soft shadows, professional composition.",
+      "dimensions": "180x180px (desktop), 160x160px (mobile)"
+    },
+
+    "illustration_4": {
+      "name": "Beneficiary Decision",
+      "description": "Two geometric figures side by side - one adult (taller) and one child (smaller) with a heart shape between them. Represents the user-beneficiary relationship. Warm and caring feel.",
+      "prompt": "A modern flat-style illustration showing adult and child figures side by side with heart between them. Simple geometric people shapes, circular heads, different heights to show adult/child. Heart icon in coral between them. Color palette: purple, coral, cream. Minimalist caring family theme, no gradients, soft shadows, warm composition.",
+      "dimensions": "200x200px (desktop), 180x180px (mobile)"
+    },
+
+    "illustration_5": {
+      "name": "Beneficiary Details",
+      "description": "A child figure with a backpack and books. School building silhouette in background. Academic elements like stars, pencil, apple. Educational and supportive feel.",
+      "prompt": "A modern flat-style illustration of child with backpack and books. Geometric child figure, backpack, floating books, pencil, and apple icons. Small school building silhouette in background. Color palette: purple, coral, cream. Minimalist educational support theme, no gradients, soft shadows, encouraging composition.",
+      "dimensions": "180x180px (desktop), 160x160px (mobile)"
+    },
+
+    "illustration_6": {
+      "name": "Review & Confirm",
+      "description": "A clipboard or checklist with checkmarks next to each item. Magnifying glass showing attention to detail. Organized and thorough feel.",
+      "prompt": "A modern flat-style illustration of clipboard with checklist and checkmarks. Geometric clipboard shape, list items with check symbols, magnifying glass icon nearby. Color palette: purple, coral, cream. Minimalist review verification theme, no gradients, soft shadows, thorough organized composition.",
+      "dimensions": "180x180px (desktop), 160x160px (mobile)"
+    },
+
+    "illustration_7": {
+      "name": "Success Celebration",
+      "description": "A person with raised arms in celebration pose. Confetti, stars, and checkmark badges floating around. Trophy or ribbon element. Exciting and rewarding feel.",
+      "prompt": "A modern flat-style illustration of person celebrating with raised arms. Geometric figure with circular head, arms up in celebration, confetti pieces, stars, and checkmark badges floating around. Small trophy or ribbon element. Color palette: purple, coral, cream. Minimalist success celebration theme, no gradients, soft shadows, joyful energetic composition.",
+      "dimensions": "280x280px (desktop), 240x240px (mobile)"
+    }
+  },
+
+  "color_palette": {
+    "primary_purple": "#5B21B6",
+    "primary_purple_light": "#7C3AED",
+    "primary_purple_dark": "#4C1D95",
+    "accent_coral": "#FB7185",
+    "background_cream": "#FFF7ED",
+    "background_white": "#FFFFFF",
+    "text_primary": "#1F2937",
+    "text_secondary": "#6B7280",
+    "text_muted": "#9CA3AF",
+    "border_light": "#E5E7EB",
+    "border_purple": "#DDD6FE",
+    "success_green": "#10B981",
+    "error_red": "#EF4444"
+  },
+
+  "typography": {
+    "font_display": "Plus Jakarta Sans (headings)",
+    "font_body": "Inter (body text)",
+    "weights": ["400 (regular)", "600 (semibold)", "700 (bold)"],
+    "scale_desktop": {
+      "h1": "32px / line-height 1.2",
+      "h2": "28px / line-height 1.2",
+      "h3": "20px / line-height 1.3",
+      "body": "16px / line-height 1.6",
+      "small": "14px / line-height 1.5",
+      "tiny": "12px / line-height 1.4"
+    },
+    "scale_mobile": {
+      "h1": "28px / line-height 1.2",
+      "h2": "24px / line-height 1.2",
+      "h3": "18px / line-height 1.3",
+      "body": "16px / line-height 1.6",
+      "small": "14px / line-height 1.5",
+      "tiny": "12px / line-height 1.4"
+    }
+  },
+
+  "form_validation": {
+    "strategy": "Real-time validation after field blur, not on every keystroke",
+    "error_display": "Below field, coral color, with icon, 12px font",
+    "success_display": "Green checkmark icon on right side of input (optional)",
+    "required_indicator": "Red asterisk (*) next to label for required fields",
+    "field_states": {
+      "default": "border-gray-200",
+      "focus": "border-purple-600, ring-2 ring-purple-100",
+      "error": "border-red-400, ring-2 ring-red-100",
+      "success": "border-green-400 (optional)",
+      "disabled": "bg-gray-100, border-gray-200, text-gray-400"
+    }
+  },
+
+  "spacing_system": {
+    "scale": [4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80],
+    "form_field_gap": "16px (desktop), 16px (mobile)",
+    "section_gap": "32px (desktop), 24px (mobile)",
+    "card_padding": "32px (desktop), 20px (mobile)",
+    "button_padding": "py-12px px-24px (desktop), py-14px px-20px (mobile)"
+  },
+
+  "interactions": {
+    "button_hover": "Slight lift (translateY(-2px)), shadow increase, no color change",
+    "button_active": "Slight press (scale(0.98))",
+    "input_focus": "Border color change to purple, subtle ring glow",
+    "switch_toggle": "Smooth slide animation (150ms ease)",
+    "accordion_expand": "Smooth height transition (200ms ease)",
+    "page_transitions": "Fade in content (300ms), slide up (20px)",
+    "file_upload_hover": "Background color change, border color intensify",
+    "swipe_gesture_mobile": "Horizontal swipe with rubber-band effect at edges"
+  },
+
+  "accessibility": {
+    "focus_visible": "2px purple-600 outline on all interactive elements",
+    "aria_labels": "All switches, checkboxes, and custom controls have aria-label",
+    "keyboard_navigation": "Full keyboard support, logical tab order",
+    "screen_reader": "Proper heading hierarchy (h1 → h2 → h3), alt text on all illustrations",
+    "color_contrast": "WCAG AA minimum (4.5:1 for text, 3:1 for large text)",
+    "error_announcement": "Screen reader announces errors when validation fails",
+    "touch_targets_mobile": "Minimum 48x48px for all interactive elements"
+  },
+
+  "notes_for_dev": [
+    "Break current single-step form into 7 separate step components for better maintainability",
+    "Use React Hook Form with Zod for validation (keep existing schemas, split by step)",
+    "Store form state in context or parent component state to preserve data across steps",
+    "Implement stepper component with dynamic step completion tracking",
+    "Step 4 (Beneficiary Details) should be SKIPPED entirely if user chose 'Adicionar depois'",
+    "Use Framer Motion for smooth page transitions between steps (slide animations)",
+    "File upload: Use react-dropzone for drag-and-drop, show preview thumbnails",
+    "Mobile: Implement swipe gesture library (react-swipeable) for step navigation",
+    "Review step (Step 5) should allow 'Edit' links that navigate back to specific steps while preserving data",
+    "Add progress persistence in localStorage (optional) to allow users to resume if they close the browser",
+    "Conditional fields should use smooth fade-in animations (animate-in from shadcn)",
+    "Password strength indicator can be added (optional) with color-coded bar",
+    "Terms acceptance checkbox must block Next button until checked",
+    "Final submit button in Step 5 should show loading state with spinner",
+    "Success step should auto-redirect to dashboard after 5 seconds (with countdown)",
+    "All illustrations should be SVG with proper alt text for accessibility",
+    "Use lazy loading for illustrations to improve initial page load time",
+    "Mobile navigation bar should be position:sticky, bottom:0 with safe-area-inset for iOS notch",
+    "Implement form autosave (debounced) to localStorage every 30 seconds",
+    "Add analytics tracking for step completion rates and abandonment points"
+  ],
+
+  "performance_considerations": [
+    "Lazy load step components (only load current step + next step)",
+    "Optimize illustrations (SVGO for SVGs, WebP for rasters)",
+    "Debounce validation to avoid excessive re-renders",
+    "Use React.memo for beneficiary cards to prevent unnecessary re-renders",
+    "Implement virtual scrolling for long select dropdowns (grade levels)",
+    "Compress uploaded images client-side before sending to server",
+    "Target page weight: <300KB per step",
+    "Total registration flow: <2MB including all assets"
+  ]
+}

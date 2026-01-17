@@ -1,0 +1,466 @@
+{
+  "route": "/login",
+  "page_name": "Login",
+  "purpose": "Provide a welcoming, secure, and efficient login experience that gets users to their role-specific dashboards quickly while maintaining brand identity and trust",
+
+  "analysis": {
+    "current_problems": [
+      "Generic centered card with no visual personality or brand identity",
+      "No illustration or visual storytelling - feels sterile and corporate",
+      "Test user credentials hardcoded and visible in production UI",
+      "No 'Forgot Password' recovery flow",
+      "No visual indication of what happens after successful login",
+      "Missing trust signals (secure login badge, encrypted connection, etc.)",
+      "No role indication or multi-role login support",
+      "Card feels cramped and uninviting",
+      "No welcome-back personalization or contextual messaging",
+      "Link to register uses old 'responsavel' terminology instead of 'user'"
+    ],
+    "ux_flaws": [
+      "Users don't know which role they're logging in as",
+      "No feedback on email format until form submission",
+      "Password visibility toggle is small and hard to tap on mobile",
+      "No 'Remember Me' option for convenience",
+      "No indication of loading state destination (which dashboard?)",
+      "Error messages are generic and don't guide users toward solutions",
+      "No session timeout warning or security information",
+      "Register link uses unclear terminology ('Cadastre-se' without context)",
+      "No social login options (Google, Facebook) for faster access",
+      "Form autofill may not work optimally due to generic field names"
+    ],
+    "ui_inconsistencies": [
+      "Plain card with no brand colors or visual interest",
+      "No illustration to match Landing and Register pages",
+      "Typography doesn't establish hierarchy or importance",
+      "Test credentials box uses muted background (looks like disabled content)",
+      "No visual separation between form and supplementary content",
+      "Button uses gradient but card doesn't reflect brand palette",
+      "No loading state beyond spinner in button",
+      "Mobile layout not optimized separately"
+    ]
+  },
+
+  "design_strategy": {
+    "visual_identity": "Split-screen design on desktop: Left side with large flat illustration + brand messaging, Right side with clean login form. Use purple (#5B21B6) for brand presence, coral (#FB7185) for CTAs, cream (#FFF7ED) for illustration background. Warm, welcoming, professional academic vibe.",
+
+    "layout_approach": "Desktop: 50/50 split (illustration | form). Mobile: Stacked vertical (illustration → form). Form stays simple with only email + password + remember me. Add forgot password link. Remove test credentials from production. Add role indicator badges after successful login.",
+
+    "component_hierarchy": "Illustration with welcome message → Login card (email, password, remember me, submit) → Secondary actions (forgot password, register link) → Trust badges at bottom",
+
+    "security_messaging": "Subtle security indicators: padlock icon, 'Secure login' badge, HTTPS indicator. Makes users feel safe without being heavy-handed.",
+
+    "illustration_strategy": "1 custom flat illustration showing a person accessing a laptop with TutorUP interface on screen. Floating elements: book icons, checkmarks, lock/shield for security. Warm, academic, professional tone.",
+
+    "mobile_differences": "Vertical stack layout. Illustration at top (reduced size). Form takes full width. Larger touch targets (min 48px). Native keyboard handling. Sticky login button at bottom on scroll."
+  },
+
+  "desktop_structure": {
+    "viewport": "1024px optimal, responsive from 768px",
+    "layout": "Two-column grid (1:1), full viewport height, no scrolling required",
+
+    "sections": [
+      {
+        "name": "Left Panel - Brand & Illustration",
+        "layout": "50% width, full height, flex column, justify-center, align-center",
+        "background": "Cream (#FFF7ED) with subtle geometric pattern",
+        "components": [
+          {
+            "element": "Logo & Welcome Message",
+            "structure": [
+              "TutorUP logo (purple, 48px height, mb-24px)",
+              "H1: 'Bem-vindo de volta!' (48px, bold, purple-900, center, mb-12px)",
+              "Subtitle: 'Acesse sua conta e continue aprendendo' (18px, gray-600, center, mb-48px)"
+            ]
+          },
+          {
+            "element": "Illustration",
+            "structure": [
+              "Flat illustration container (500x500px, center)",
+              "Illustration: Person at laptop with TutorUP dashboard visible on screen",
+              "Floating elements: books, checkmarks, shield icon, progress indicators",
+              "Color palette: Purple, coral, cream, with soft shadows"
+            ]
+          },
+          {
+            "element": "Trust Indicators",
+            "structure": [
+              "Flex row, justify-center, gap-32px, mt-48px",
+              "Indicator 1: Lock icon + 'Conexão Segura' (14px, gray-600)",
+              "Indicator 2: Shield icon + 'Dados Protegidos' (14px, gray-600)",
+              "Indicator 3: Checkmark icon + '99% Uptime' (14px, gray-600)"
+            ]
+          }
+        ],
+        "spacing": "px-64px, py-48px"
+      },
+
+      {
+        "name": "Right Panel - Login Form",
+        "layout": "50% width, full height, flex column, justify-center, align-center",
+        "background": "White",
+        "components": [
+          {
+            "element": "Login Card",
+            "structure": [
+              "Container: max-width-440px, center-aligned, px-32px",
+              "Card: White bg (no border, no shadow - clean and minimal)",
+              "Header section:",
+              "  - H2: 'Entrar na sua conta' (32px, bold, purple-900, mb-8px)",
+              "  - Description: 'Use seu email e senha para acessar' (16px, gray-600, mb-32px)",
+              "Form fields:",
+              "  - Email field:",
+              "    • Label: 'Email' (14px, gray-700, mb-8px)",
+              "    • Input: Full-width, 48px height, 16px text, rounded-8px, border-2 border-gray-200",
+              "    • Placeholder: 'seu@email.com'",
+              "    • Focus state: border-purple-600, ring-2 ring-purple-100",
+              "    • Error state: border-red-400, ring-2 ring-red-100",
+              "    • Error message: 12px, coral color, mt-4px",
+              "  - Password field (mt-20px):",
+              "    • Label: 'Senha' (14px, gray-700, mb-8px)",
+              "    • Input: Same style as email, type password",
+              "    • Eye toggle: Absolute right-12px, 40px tap target, gray-600 icon",
+              "    • Placeholder: '••••••••'",
+              "    • Error message below if validation fails",
+              "  - Remember Me row (mt-16px):",
+              "    • Flex row, justify-between, align-center",
+              "    • Left: Checkbox (20x20px, purple accent) + Label 'Lembrar de mim' (14px)",
+              "    • Right: Link 'Esqueceu a senha?' (14px, coral color, hover:underline)",
+              "  - Submit button (mt-32px):",
+              "    • Full-width, 48px height, purple-600 bg, white text, 16px, rounded-8px, shadow-sm",
+              "    • Hover: translateY(-2px), shadow-md",
+              "    • Loading state: Spinner icon + 'Entrando...'",
+              "    • Text: 'Entrar'",
+              "Divider (mt-32px, mb-24px):",
+              "  - Horizontal line with 'ou' text in center (gray-300 line, gray-600 text)",
+              "Register link:",
+              "  - Text: 'Não tem conta?' (14px, gray-600) + Link 'Criar conta gratuita' (14px, purple-600, bold, hover:underline)",
+              "  - Center-aligned",
+              "Dev mode section (only show if process.env.NODE_ENV === 'development'):",
+              "  - Small box, light purple bg, rounded-8px, p-16px, mt-24px",
+              "  - Title: 'Contas de teste' (12px, bold, purple-700, mb-8px)",
+              "  - List of test accounts (10px, gray-600):",
+              "    • 'Usuário: maria@email.com'",
+              "    • 'Professor: joao@email.com'",
+              "    • 'Admin: admin@tutorup.com'",
+              "    • 'Senha: qualquer valor'",
+              "  - Note: 'Apenas visível em modo de desenvolvimento' (10px, italic, gray-500)"
+            ]
+          }
+        ],
+        "spacing": "px-64px, py-48px"
+      }
+    ]
+  },
+
+  "mobile_structure": {
+    "viewport": "375px - 768px",
+    "layout": "Single column, vertical scroll",
+    "key_differences": [
+      "No split-screen layout - stack illustration above form",
+      "Illustration reduced to 280x280px",
+      "Form takes full width with 20px horizontal padding",
+      "All touch targets minimum 48px height",
+      "Sticky login button when keyboard is visible",
+      "Logo at top instead of in illustration panel",
+      "Trust indicators moved to bottom or removed for space"
+    ],
+
+    "sections": [
+      {
+        "name": "Mobile Header",
+        "layout": "Full-width, center-aligned",
+        "components": [
+          {
+            "element": "Header",
+            "structure": [
+              "Cream background, pt-32px, pb-24px",
+              "TutorUP logo (purple, 40px height, center, mb-16px)",
+              "H1: 'Bem-vindo!' (28px, bold, center, mb-8px)",
+              "Subtitle: 'Acesse sua conta' (16px, gray-600, center)"
+            ]
+          }
+        ],
+        "spacing": "px-20px"
+      },
+
+      {
+        "name": "Mobile Illustration",
+        "layout": "Full-width, center-aligned",
+        "components": [
+          {
+            "element": "Illustration",
+            "structure": [
+              "Cream background, py-32px",
+              "Illustration: 280x280px, center",
+              "Same theme as desktop but optimized size"
+            ]
+          }
+        ]
+      },
+
+      {
+        "name": "Mobile Form",
+        "layout": "Full-width, white background",
+        "components": [
+          {
+            "element": "Login Form",
+            "structure": [
+              "White bg, px-20px, pt-32px, pb-80px (space for sticky button)",
+              "H2: 'Entrar' (24px, bold, mb-24px)",
+              "Email field:",
+              "  - Label: 14px, mb-8px",
+              "  - Input: Full-width, 48px height, rounded-8px",
+              "  - mb-20px",
+              "Password field:",
+              "  - Label: 14px, mb-8px",
+              "  - Input: Full-width, 48px height, rounded-8px",
+              "  - Eye toggle: 48px tap target",
+              "  - mb-16px",
+              "Remember Me row:",
+              "  - Flex row, justify-between",
+              "  - Checkbox: 24x24px (larger for mobile)",
+              "  - Forgot password link: 14px, coral",
+              "  - mb-32px",
+              "Submit button:",
+              "  - Full-width, 48px height, purple bg, rounded-8px",
+              "  - mb-24px",
+              "Divider with 'ou' (mb-20px)",
+              "Register link:",
+              "  - Center-aligned, 14px",
+              "  - 'Criar conta gratuita' in purple, bold",
+              "Dev mode box (if applicable):",
+              "  - Same as desktop but with 14px padding, 10px text"
+            ]
+          }
+        ]
+      },
+
+      {
+        "name": "Mobile Trust Indicators",
+        "layout": "Full-width, center-aligned, optional",
+        "components": [
+          {
+            "element": "Trust Badges",
+            "structure": [
+              "White bg, py-24px, px-20px",
+              "Single column stack or 2-column grid",
+              "Each indicator: Icon + Text, 12px, gray-600, mb-12px",
+              "Icons: 16px size"
+            ]
+          }
+        ]
+      }
+    ],
+
+    "mobile_interactions": [
+      "Native email keyboard on email input",
+      "Password keyboard with show/hide toggle",
+      "Tap forgot password to trigger modal or navigate to recovery page",
+      "Remember me toggle with haptic feedback",
+      "Form validation on blur, not on every keystroke",
+      "Auto-scroll to first error field on validation fail",
+      "Loading state disables button and shows spinner",
+      "Success toast appears before navigation",
+      "Keyboard dismisses on submit"
+    ]
+  },
+
+  "illustrations": {
+    "total_needed": 1,
+    "style_guide": "Flat geometric design, clean shapes, no gradients, soft shadows. Purple (#5B21B6), coral (#FB7185), cream (#FFF7ED). Character has circular head, dot eyes, curved smile. Academic elements: books, laptop, dashboard UI, progress indicators, shield icon.",
+
+    "illustration_1": {
+      "name": "Login Welcome",
+      "description": "A geometric person sitting at a desk with a laptop showing TutorUP dashboard interface. Laptop screen displays simplified UI elements (cards, graphs, calendar). Floating around: open book icons, checkmarks, a shield/lock for security, small progress bars. Person appears focused and content. Warm, professional, secure feeling.",
+      "prompt": "A modern flat-style illustration showing a person at desk using laptop with TutorUP dashboard on screen. Simple geometric person with circular head, dot eyes, curved smile. Laptop shows simplified UI cards and graphs. Floating elements: books, checkmarks, shield icon, progress bars. Color palette: deep purple, coral pink, cream background. Minimalist professoral academic theme, no gradients, soft shadows, secure productive composition.",
+      "dimensions": "500x500px (desktop), 280x280px (mobile)"
+    }
+  },
+
+  "color_palette": {
+    "primary_purple": "#5B21B6",
+    "primary_purple_light": "#7C3AED",
+    "primary_purple_dark": "#4C1D95",
+    "accent_coral": "#FB7185",
+    "background_cream": "#FFF7ED",
+    "background_white": "#FFFFFF",
+    "text_primary": "#1F2937",
+    "text_secondary": "#6B7280",
+    "text_muted": "#9CA3AF",
+    "border_light": "#E5E7EB",
+    "border_purple": "#DDD6FE",
+    "success_green": "#10B981",
+    "error_red": "#EF4444"
+  },
+
+  "typography": {
+    "font_display": "Plus Jakarta Sans (headings)",
+    "font_body": "Inter (body text)",
+    "weights": ["400 (regular)", "600 (semibold)", "700 (bold)"],
+    "scale_desktop": {
+      "h1": "48px / line-height 1.2",
+      "h2": "32px / line-height 1.2",
+      "body": "16px / line-height 1.6",
+      "small": "14px / line-height 1.5",
+      "tiny": "12px / line-height 1.4"
+    },
+    "scale_mobile": {
+      "h1": "28px / line-height 1.2",
+      "h2": "24px / line-height 1.2",
+      "body": "16px / line-height 1.6",
+      "small": "14px / line-height 1.5",
+      "tiny": "12px / line-height 1.4"
+    }
+  },
+
+  "form_validation": {
+    "strategy": "Real-time validation on blur for each field",
+    "email_validation": "Check format immediately, show checkmark if valid",
+    "password_validation": "Min 6 characters, show error if less",
+    "error_display": "Below field, coral color, with error icon, 12px font",
+    "success_indicator": "Green checkmark icon on right side of input (optional)",
+    "generic_errors": [
+      {
+        "scenario": "Invalid email/password",
+        "message": "Email ou senha incorretos. Verifique e tente novamente.",
+        "action": "Show forgot password link prominently"
+      },
+      {
+        "scenario": "Network error",
+        "message": "Não foi possível conectar. Verifique sua internet e tente novamente.",
+        "action": "Show retry button"
+      },
+      {
+        "scenario": "Account locked",
+        "message": "Sua conta foi temporariamente bloqueada. Entre em contato com o suporte.",
+        "action": "Show support email/link"
+      }
+    ]
+  },
+
+  "forgot_password_flow": {
+    "trigger": "Click 'Esqueceu a senha?' link",
+    "modal_or_page": "Modal overlay preferred for desktop, full-page for mobile",
+    "modal_design": {
+      "structure": [
+        "Overlay: Dark background with 50% opacity, backdrop-blur",
+        "Modal card: White bg, rounded-16px, max-width-480px, center, p-32px, shadow-2xl",
+        "Close button: Top-right corner (X icon, 40px tap target)",
+        "Icon: Key or lock icon (coral, 64px, center, mb-16px)",
+        "H3: 'Recuperar senha' (24px, bold, center, mb-8px)",
+        "Subtitle: 'Digite seu email e enviaremos instruções para redefinir sua senha' (14px, gray-600, center, mb-24px)",
+        "Email input: Full-width, 48px, rounded-8px, mb-16px",
+        "Submit button: 'Enviar link de recuperação' (full-width, 48px, purple bg, rounded-8px)",
+        "Back link: 'Voltar para login' (14px, center, coral color, mt-16px)"
+      ]
+    },
+    "success_state": {
+      "message": "Email enviado! Verifique sua caixa de entrada e siga as instruções.",
+      "icon": "Checkmark in green circle",
+      "auto_close": "Modal auto-closes after 3 seconds or user clicks 'Fechar'"
+    }
+  },
+
+  "remember_me_functionality": {
+    "behavior": "Saves email in localStorage, not password (security)",
+    "duration": "30 days",
+    "auto_fill": "On page load, check localStorage and pre-fill email if exists",
+    "clear_on_logout": "Remove from localStorage when user logs out"
+  },
+
+  "loading_states": {
+    "button": "Spinner icon + 'Entrando...' text",
+    "overlay": "Optional: Full-screen semi-transparent overlay during login API call",
+    "success_transition": "Toast message 'Login realizado!' + 200ms delay before navigation",
+    "error_transition": "Shake animation on form + error toast"
+  },
+
+  "role_based_redirect": {
+    "logic": "After successful login, redirect based on user role:",
+    "routes": {
+      "responsavel": "/app (Responsavel Dashboard)",
+      "professor": "/prof (Professor Dashboard)",
+      "admin": "/admin (Admin Dashboard)"
+    },
+    "fallback": "If role is unknown, redirect to /app and let RouteGuard handle it"
+  },
+
+  "accessibility": {
+    "focus_visible": "2px purple-600 outline on all interactive elements",
+    "aria_labels": "Checkbox has aria-label='Lembrar de mim', Eye toggle has aria-label='Mostrar senha'",
+    "keyboard_navigation": "Tab order: Email → Password → Remember Me → Forgot Password → Submit → Register",
+    "screen_reader": "Form has proper labels, error messages announced on validation fail",
+    "color_contrast": "WCAG AA minimum (4.5:1 for text)",
+    "focus_trap": "Forgot password modal traps focus when open",
+    "escape_key": "Closes forgot password modal"
+  },
+
+  "spacing_system": {
+    "scale": [4, 8, 12, 16, 20, 24, 32, 48, 64],
+    "form_field_gap": "20px",
+    "section_gap": "32px",
+    "card_padding": "32px (desktop), 20px (mobile)"
+  },
+
+  "interactions": {
+    "button_hover": "Slight lift (translateY(-2px)), shadow increase",
+    "button_active": "Scale(0.98)",
+    "input_focus": "Border color to purple, ring glow",
+    "eye_toggle": "Icon swap animation (150ms fade)",
+    "remember_me_toggle": "Checkbox scale bounce animation",
+    "forgot_password_modal": "Fade in background + slide up modal (200ms)",
+    "form_shake": "On error, horizontal shake animation (300ms)",
+    "success_toast": "Slide in from top (300ms)"
+  },
+
+  "security_considerations": {
+    "password_visibility": "Toggle allows showing/hiding password",
+    "remember_me": "Only stores email, never password",
+    "https_only": "Force HTTPS connection in production",
+    "rate_limiting": "Backend should limit login attempts (5 per minute)",
+    "session_duration": "JWT expires after 24 hours (configurable)",
+    "logout_all_devices": "Future feature: Allow user to logout from all sessions"
+  },
+
+  "notes_for_dev": [
+    "Split screen layout uses CSS Grid with 1:1 columns on desktop, single column on mobile",
+    "Left panel (illustration) should be fixed height (100vh) to avoid scrolling",
+    "Use React Hook Form with Zod validation (schema already exists)",
+    "Implement forgot password modal with React portal or Radix Dialog component",
+    "Remember me functionality: Save email to localStorage with key 'tutorup_remember_email'",
+    "On component mount, check localStorage and pre-fill email if 'remember me' was checked",
+    "Test credentials box should only render if process.env.NODE_ENV === 'development'",
+    "Use framer-motion for modal animations (fade in overlay, slide up content)",
+    "Form shake animation on error: Use CSS keyframes or framer-motion",
+    "Success toast appears using existing useToast hook before navigation",
+    "Redirect logic already exists (from location state), maintain current behavior",
+    "Mobile: Use position:sticky for submit button when keyboard is visible (optional enhancement)",
+    "Illustration should be SVG with proper alt text: 'Person accessing TutorUP dashboard on laptop'",
+    "Trust indicators can use lucide-react icons: Lock, Shield, CheckCircle",
+    "Forgot password modal should have escape key handler to close",
+    "Focus should trap inside modal when open (use Radix Dialog's focus management)",
+    "Email input should have autocomplete='email' for better autofill",
+    "Password input should have autocomplete='current-password'",
+    "Form should have autocomplete='on' to allow browser password managers to work",
+    "Loading state should disable all form inputs, not just submit button"
+  ],
+
+  "performance_considerations": [
+    "Lazy load forgot password modal (code-split)",
+    "Optimize illustration SVG (use SVGO)",
+    "Preload font files for faster text rendering",
+    "Use CSS containment for left/right panels",
+    "Minimize layout shift by reserving space for illustrations",
+    "Target page weight: <200KB on initial load"
+  ],
+
+  "future_enhancements": [
+    "Social login (Google, Facebook) with OAuth2",
+    "Biometric authentication on mobile (fingerprint, Face ID)",
+    "Two-factor authentication (2FA) with SMS or authenticator app",
+    "Magic link login (passwordless email link)",
+    "Login activity log (recent logins, devices, locations)",
+    "Security alerts (unusual login attempts)",
+    "Dark mode support with system preference detection"
+  ]
+}

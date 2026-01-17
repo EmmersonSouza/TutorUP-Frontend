@@ -1,0 +1,536 @@
+{
+  "route": "/",
+  "page_name": "Landing",
+  "purpose": "Convert visitors into registered parents/guardians by communicating trust, simplicity, and educational excellence through a modern flat design with professoral aesthetics",
+
+  "analysis": {
+    "current_problems": [
+      "Generic hero section lacks visual impact and educational identity",
+      "No hero illustration to convey the tutoring relationship",
+      "Features section uses basic icon cards without visual storytelling",
+      "How it Works section is too simplistic - doesn't show the actual platform value",
+      "No social proof or trust signals (testimonials, success metrics, professor showcase)",
+      "Missing educational/academic visual language",
+      "No clear value proposition differentiation",
+      "CTA section feels repetitive and lacks urgency or unique angle"
+    ],
+    "ux_flaws": [
+      "Two CTAs in hero compete for attention without clear hierarchy",
+      "Feature cards don't tell a compelling story or guide user journey",
+      "How it Works doesn't show real screenshots or concrete examples",
+      "No trust-building section before asking for signup",
+      "Missing professor preview - users can't see who they'd work with",
+      "No pricing transparency or session details",
+      "Call-to-action feels generic instead of parent-focused"
+    ],
+    "ui_inconsistencies": [
+      "Relies too heavily on shadcn defaults without custom visual identity",
+      "Icon-only features lack the professoral aesthetic",
+      "No custom illustration style established",
+      "Color usage doesn't establish educational authority",
+      "Typography doesn't convey academic credibility",
+      "Mobile experience not separately designed"
+    ]
+  },
+
+  "design_strategy": {
+    "visual_identity": "Flat, minimalistic design with deep purple (#5B21B6 - academic purple) as primary, cream/off-white (#FFF7ED) backgrounds, and coral (#FB7185) as accent for CTAs. Illustrations should feature clean geometric shapes representing students, tutors, books, and educational elements with a warm, approachable yet professional tone.",
+
+    "layout_approach": "Single-page scroll with clear visual sections separated by subtle color shifts. Hero dominates with 50/50 text-illustration split. Features use horizontal cards with inline illustrations. How it Works becomes an interactive timeline. Add social proof section with professor cards. End with trust-focused CTA.",
+
+    "component_hierarchy": "Hero → Value Props → How it Works (visual timeline) → Professor Showcase → Social Proof → Final CTA with trust badges",
+
+    "illustration_strategy": "4 custom flat illustrations: (1) Hero - tutor and student with books/laptop, (2) Scheduling flow visualization, (3) Real-time feedback concept, (4) Success story visual. All use consistent geometric style with purple/coral/cream palette.",
+
+    "mobile_differences": "Stack all 50/50 layouts vertically with illustration-first approach. Reduce text density. Enlarge tap targets to minimum 48px. Convert horizontal scrolls to vertical stacks. Simplify navigation to sticky header with menu icon."
+  },
+
+  "desktop_structure": {
+    "viewport": "1440px optimal, responsive from 768px",
+    "sections": [
+      {
+        "name": "Hero Section",
+        "layout": "Two-column grid (1:1), max-width 1280px, centered",
+        "components": [
+          {
+            "element": "Left Column - Content",
+            "structure": [
+              "Eyebrow text: 'Educação personalizada com TutorUP' (12px, uppercase, purple-600, letter-spacing)",
+              "H1: 'Reforço escolar que transforma resultados' (64px, font-display, bold, line-height 1.1)",
+              "Subtitle: 'Conecte seu filho aos melhores professores. Agende aulas com segurança, acompanhe o progresso em tempo real.' (20px, gray-600, line-height 1.6)",
+              "CTA Group (flex-row, gap 16px):",
+              "  - Primary CTA: 'Começar gratuitamente' (purple-600 bg, white text, 18px, py-16px px-32px, rounded-12px, shadow-md)",
+              "  - Secondary CTA: 'Ver como funciona' (outline, scroll to How it Works)"
+            ],
+            "spacing": "gap-24px vertical between elements"
+          },
+          {
+            "element": "Right Column - Illustration",
+            "structure": [
+              "Flat illustration container (600x600px)",
+              "Illustration: Tutor and student sitting at desk with laptop, floating book icons, checkmarks, calendar, and progress charts around them",
+              "Color palette: Purple (tutor), coral (student), cream background, minimal shadows"
+            ],
+            "notes": "Illustration should feel warm, approachable, and clearly communicate 1-on-1 tutoring"
+          }
+        ],
+        "background": "Cream (#FFF7ED) with subtle grid pattern or geometric shapes in lighter purple",
+        "spacing": "py-120px on desktop, px-32px"
+      },
+
+      {
+        "name": "Value Propositions",
+        "layout": "4-column grid on desktop, max-width 1280px",
+        "components": [
+          {
+            "element": "Section Header",
+            "structure": [
+              "H2: 'Por que escolher o TutorUP?' (48px, center-aligned, mb-64px)"
+            ]
+          },
+          {
+            "element": "Feature Cards (4 total)",
+            "structure": [
+              "Each card: White bg, rounded-16px, p-32px, border-2px border-purple-100, hover:border-purple-300",
+              "Inline illustration (120x120px, flat style) at top",
+              "Title: 18px, bold, mb-12px",
+              "Description: 16px, gray-600, line-height-1.6",
+              "Visual hierarchy: Illustration → Title → Description"
+            ],
+            "cards": [
+              {
+                "title": "Professores Verificados",
+                "description": "Todos os professores passam por verificação rigorosa de diplomas, experiência e background.",
+                "illustration_theme": "Magnifying glass over professor icon with diploma/checkmark"
+              },
+              {
+                "title": "Agendamento Inteligente",
+                "description": "Escolha horário, matéria e professor. Receba lembretes automáticos e confirmações.",
+                "illustration_theme": "Calendar with time slots and notification bells"
+              },
+              {
+                "title": "Pagamento Protegido",
+                "description": "PIX, cartão de crédito ou débito com criptografia bancária. Pague apenas após a confirmação da aula.",
+                "illustration_theme": "Shield with payment icons (PIX, cards)"
+              },
+              {
+                "title": "Relatórios Detalhados",
+                "description": "Acompanhe o progresso com feedback após cada aula: pontos fortes, áreas de melhoria e próximos passos.",
+                "illustration_theme": "Document with star ratings and progress bar"
+              }
+            ]
+          }
+        ],
+        "background": "White",
+        "spacing": "py-96px"
+      },
+
+      {
+        "name": "How It Works - Visual Timeline",
+        "layout": "Horizontal timeline with 3 steps, max-width 1200px",
+        "components": [
+          {
+            "element": "Section Header",
+            "structure": [
+              "H2: 'Como funciona em 3 passos simples' (48px, center, mb-64px)"
+            ]
+          },
+          {
+            "element": "Timeline Steps (horizontal)",
+            "structure": [
+              "3 connected cards with arrows between them",
+              "Each card: 360px width, white bg, rounded-16px, p-32px, shadow-sm",
+              "Step badge: Purple circle (48px) with white number, positioned -24px from top",
+              "Illustration: 200x200px flat illustration inside card",
+              "Title: 20px bold, mb-12px",
+              "Description: 16px, gray-600",
+              "Arrow connector: Coral color, 40px wide, positioned between cards"
+            ],
+            "steps": [
+              {
+                "number": "1",
+                "title": "Cadastre-se Gratuitamente",
+                "description": "Crie sua conta em 2 minutos. Adicione informações da criança: série, matérias com dificuldade, e objetivos.",
+                "illustration_theme": "Person filling form with child profile card and school subjects icons"
+              },
+              {
+                "number": "2",
+                "title": "Escolha e Agende",
+                "description": "Navegue pelos professores, veja perfis completos, avaliações e disponibilidade. Agende a aula ideal.",
+                "illustration_theme": "Calendar interface with professor cards and time selection"
+              },
+              {
+                "number": "3",
+                "title": "Acompanhe em Tempo Real",
+                "description": "Receba confirmação, lembretes e notificação de check-in. Feedback detalhado após cada sessão.",
+                "illustration_theme": "Phone screen showing notifications and feedback report"
+              }
+            ]
+          }
+        ],
+        "background": "Cream (#FFF7ED)",
+        "spacing": "py-96px"
+      },
+
+      {
+        "name": "Professor Showcase",
+        "layout": "Centered content, max-width 1280px",
+        "components": [
+          {
+            "element": "Section Header",
+            "structure": [
+              "H2: 'Conheça nossos professores' (48px, center, mb-16px)",
+              "Subtitle: 'Especialistas qualificados prontos para ajudar seu filho' (18px, gray-600, center, mb-48px)"
+            ]
+          },
+          {
+            "element": "Professor Cards Grid",
+            "structure": [
+              "3-column grid on desktop",
+              "Each card: White bg, rounded-16px, overflow-hidden, shadow-md, hover:shadow-lg transition",
+              "Card structure:",
+              "  - Top bar: Purple-600 bg, py-4px, center-aligned badge (e.g., 'Matemática')",
+              "  - Avatar section: Circular avatar placeholder (120px), centered, mt-24px",
+              "  - Name: 20px bold, center, mt-16px",
+              "  - Credentials: 14px gray-600, center (e.g., 'Licenciado em Matemática - UFMG')",
+              "  - Stats row (flex, justify-between, mt-16px, px-24px):",
+              "    • '4.9 ⭐' (rating)",
+              "    • '120+ aulas' (experience)",
+              "  - CTA: 'Ver perfil completo' (text-link, coral color, center, mb-24px)"
+            ],
+            "note": "Show 3 real or placeholder professor cards to build trust"
+          }
+        ],
+        "background": "White",
+        "spacing": "py-96px"
+      },
+
+      {
+        "name": "Social Proof",
+        "layout": "Centered, max-width 1000px",
+        "components": [
+          {
+            "element": "Stats Row",
+            "structure": [
+              "3-column grid, text-center",
+              "Each stat:",
+              "  - Large number: 56px, purple-600, bold",
+              "  - Label: 16px, gray-600, uppercase, letter-spacing"
+            ],
+            "stats": [
+              { "number": "500+", "label": "Aulas realizadas" },
+              { "number": "200+", "label": "Alunos ativos" },
+              { "number": "4.8/5", "label": "Avaliação média" }
+            ]
+          },
+          {
+            "element": "Testimonial Section",
+            "structure": [
+              "2 testimonial cards in 2-column grid, mt-48px",
+              "Each card: White bg, rounded-16px, p-32px, border-l-4 border-coral",
+              "Quote icon (coral) at top-left",
+              "Quote text: 18px, italic, line-height-1.8, mb-16px",
+              "Author: 16px bold, gray-900",
+              "Author subtitle: 14px gray-600"
+            ],
+            "testimonials": [
+              {
+                "quote": "Minha filha melhorou as notas em matemática em apenas 2 meses. Os professores são atenciosos e o acompanhamento é excelente!",
+                "author": "Maria Silva",
+                "subtitle": "Mãe de aluna do 7º ano"
+              },
+              {
+                "quote": "A plataforma é super fácil de usar e os relatórios ajudam a entender exatamente onde meu filho precisa melhorar.",
+                "author": "João Santos",
+                "subtitle": "Pai de aluno do 9º ano"
+              }
+            ]
+          }
+        ],
+        "background": "Cream (#FFF7ED)",
+        "spacing": "py-96px"
+      },
+
+      {
+        "name": "Final CTA",
+        "layout": "Centered card, max-width 800px",
+        "components": [
+          {
+            "element": "CTA Card",
+            "structure": [
+              "White card, rounded-24px, p-64px, shadow-2xl, border-2 border-purple-100",
+              "H2: 'Comece hoje mesmo' (40px, center, mb-16px)",
+              "Subtitle: 'Cadastro gratuito. Sem compromisso. Cancele quando quiser.' (18px, gray-600, center, mb-32px)",
+              "CTA Button: 'Criar conta gratuita' (purple-600 bg, white text, 20px, py-20px px-48px, rounded-12px, shadow-md, center)",
+              "Trust badges row below (flex, justify-center, gap-24px, mt-24px):",
+              "  - 'Pagamento Seguro' icon + text",
+              "  - 'Sem Taxas Escondidas' icon + text",
+              "  - 'Suporte 24/7' icon + text"
+            ]
+          }
+        ],
+        "background": "White",
+        "spacing": "py-120px"
+      }
+    ]
+  },
+
+  "mobile_structure": {
+    "viewport": "375px - 768px",
+    "key_differences": [
+      "All two-column layouts become single-column stacks",
+      "Illustrations appear ABOVE text content for visual-first engagement",
+      "Reduce font sizes: H1 (36px), H2 (32px), body (16px)",
+      "Horizontal timelines become vertical",
+      "Professor cards: 1-column, full-width stack with horizontal scroll option",
+      "Sticky header with hamburger menu (48px tap target)",
+      "Bottom sticky CTA bar for easy conversion"
+    ],
+    "sections": [
+      {
+        "name": "Mobile Hero",
+        "layout": "Single column, vertical stack",
+        "components": [
+          {
+            "element": "Hero Content",
+            "structure": [
+              "Illustration FIRST (full-width, 320px height)",
+              "Eyebrow text: 10px, uppercase",
+              "H1: 36px, line-height 1.2, mb-16px",
+              "Subtitle: 16px, line-height 1.6, mb-24px",
+              "CTA Stack (vertical):",
+              "  - Primary CTA: Full-width, py-16px, 16px text, rounded-12px, mb-12px",
+              "  - Secondary CTA: Full-width, outline, py-16px"
+            ]
+          }
+        ],
+        "spacing": "py-48px, px-20px"
+      },
+      {
+        "name": "Mobile Value Props",
+        "layout": "Single column stack",
+        "components": [
+          {
+            "element": "Feature Cards",
+            "structure": [
+              "Each card stacks vertically, mb-16px",
+              "Illustration: 100x100px, centered at top",
+              "Title: 16px bold, center, mb-8px",
+              "Description: 14px, center, line-height-1.5"
+            ]
+          }
+        ],
+        "spacing": "py-48px, px-20px"
+      },
+      {
+        "name": "Mobile Timeline",
+        "layout": "Vertical timeline with connecting line",
+        "components": [
+          {
+            "element": "Vertical Steps",
+            "structure": [
+              "Vertical stack with left-aligned step badges",
+              "Connecting line (2px, purple-300) runs down left side",
+              "Step badge: 40px circle, purple-600, positioned on line",
+              "Card content indented from badge (ml-60px)",
+              "Illustration: 180x180px, inside card",
+              "Title: 18px bold, mb-8px",
+              "Description: 14px, line-height-1.5"
+            ]
+          }
+        ],
+        "spacing": "py-48px, px-20px"
+      },
+      {
+        "name": "Mobile Professor Showcase",
+        "layout": "Horizontal scroll or single column stack",
+        "components": [
+          {
+            "element": "Professor Cards",
+            "structure": [
+              "Option A: Horizontal scroll (snap-scroll, each card 280px wide)",
+              "Option B: Single column stack (full-width cards)",
+              "Reduce card padding to 20px",
+              "Avatar: 80px",
+              "Font sizes: Name (16px), credentials (12px)"
+            ]
+          }
+        ],
+        "spacing": "py-48px, px-20px"
+      },
+      {
+        "name": "Mobile Social Proof",
+        "layout": "Single column",
+        "components": [
+          {
+            "element": "Stats",
+            "structure": [
+              "Stack stats vertically instead of grid",
+              "Each stat mb-24px",
+              "Number: 40px",
+              "Label: 14px"
+            ]
+          },
+          {
+            "element": "Testimonials",
+            "structure": [
+              "Single column stack",
+              "Each card mb-16px",
+              "Quote: 16px",
+              "Reduce padding to 20px"
+            ]
+          }
+        ],
+        "spacing": "py-48px, px-20px"
+      },
+      {
+        "name": "Mobile Final CTA",
+        "layout": "Full-width card",
+        "components": [
+          {
+            "element": "CTA Card",
+            "structure": [
+              "Reduce padding to 32px",
+              "H2: 28px",
+              "Subtitle: 16px",
+              "CTA: Full-width button, py-16px",
+              "Trust badges: Stack vertically or 2-column grid with smaller icons"
+            ]
+          }
+        ],
+        "spacing": "py-48px, px-20px"
+      },
+      {
+        "name": "Sticky Bottom CTA (Mobile only)",
+        "layout": "Fixed bottom bar",
+        "components": [
+          {
+            "element": "Bottom Bar",
+            "structure": [
+              "Fixed position, bottom-0, left-0, right-0",
+              "White bg, shadow-2xl, border-top",
+              "py-12px, px-20px",
+              "CTA Button: 'Começar Grátis' (purple-600, full-width, py-14px, rounded-8px)",
+              "Small text below: 'Sem compromisso • Cancele quando quiser' (10px, gray-500, center)"
+            ]
+          }
+        ],
+        "note": "Appears after user scrolls past hero section"
+      }
+    ]
+  },
+
+  "illustrations": {
+    "total_needed": 4,
+    "style_guide": "Flat geometric design with clean shapes, no gradients, soft shadows only. Use 3-color palette: Purple (#5B21B6), Coral (#FB7185), Cream (#FFF7ED). Characters should have simple circular heads, minimal facial features (dots for eyes), and geometric bodies. Academic elements: books, laptops, calendars, charts, checkmarks, stars.",
+
+    "illustration_1": {
+      "name": "Hero Illustration",
+      "description": "A warm, inviting scene showing a tutor (left) and student (right) sitting at a desk with an open laptop. Floating around them: book icons, checkmark badges, a calendar widget, and a small progress chart. Both characters are smiling (simple curved lines). Desk is geometric rectangle. Background has subtle floating academic elements.",
+      "prompt": "A modern flat-style illustration showing a tutor and student at a desk with a laptop. Clean geometric shapes, simple circular heads with dot eyes and curved smile lines. Color palette: deep purple for tutor, coral pink for student, cream background. Floating elements: books, checkmarks, calendar, progress chart icons. No gradients, soft shadows, minimalist professoral academic theme. Balanced composition, friendly atmosphere.",
+      "dimensions": "600x600px (desktop), 320x320px (mobile)"
+    },
+
+    "illustration_2": {
+      "name": "Scheduling Flow",
+      "description": "A simplified interface mockup showing a calendar grid with time slots being selected. A hand cursor (geometric simplified hand) pointing at a time slot. Professor avatar cards floating nearby. Checkmark appears when selection is made.",
+      "prompt": "A modern flat-style illustration of a calendar interface with time slots. Clean geometric shapes showing calendar grid, simplified hand cursor selecting a time slot, small professor avatar cards. Color palette: purple, coral, cream. Minimalist style, no gradients, soft shadows. Academic scheduling theme with clean lines and balanced composition.",
+      "dimensions": "200x200px (desktop), 180x180px (mobile)"
+    },
+
+    "illustration_3": {
+      "name": "Feedback Report",
+      "description": "A document/report icon with star ratings (5 geometric stars), progress bar showing improvement, and small icons representing different subjects (math symbols, language symbols). Checkmarks and upward trending arrow.",
+      "prompt": "A modern flat-style illustration of a feedback report document. Clean geometric document shape with star ratings, progress bar, subject icons (math, language symbols), checkmarks, and upward trend arrow. Color palette: purple, coral, cream. Minimalist academic theme, no gradients, soft shadows, balanced composition.",
+      "dimensions": "200x200px (desktop), 180x180px (mobile)"
+    },
+
+    "illustration_4": {
+      "name": "Real-time Notifications",
+      "description": "A smartphone mockup (geometric rectangle with rounded corners) displaying notification badges, check-in confirmation, and a mini progress dashboard. Bell icon with notification dot.",
+      "prompt": "A modern flat-style illustration of a smartphone showing notification interface. Clean geometric phone shape, notification badges, bell icon, check-in confirmation checkmark, mini dashboard with progress indicators. Color palette: purple, coral, cream. Minimalist tech-academic theme, no gradients, soft shadows, balanced composition.",
+      "dimensions": "200x200px (desktop), 180x180px (mobile)"
+    }
+  },
+
+  "color_palette": {
+    "primary": "#5B21B6",
+    "primary_light": "#7C3AED",
+    "primary_dark": "#4C1D95",
+    "accent": "#FB7185",
+    "background_cream": "#FFF7ED",
+    "background_white": "#FFFFFF",
+    "text_primary": "#1F2937",
+    "text_secondary": "#6B7280",
+    "border_light": "#E5E7EB",
+    "success": "#10B981"
+  },
+
+  "typography": {
+    "font_display": "var(--font-display) or 'Plus Jakarta Sans', sans-serif for headings",
+    "font_body": "var(--font-body) or 'Inter', sans-serif for body text",
+    "weights": ["400 (regular)", "600 (semibold)", "700 (bold)"],
+    "scale_desktop": {
+      "h1": "64px / line-height 1.1",
+      "h2": "48px / line-height 1.2",
+      "h3": "24px / line-height 1.3",
+      "body_large": "20px / line-height 1.6",
+      "body": "16px / line-height 1.6",
+      "small": "14px / line-height 1.5"
+    },
+    "scale_mobile": {
+      "h1": "36px / line-height 1.2",
+      "h2": "32px / line-height 1.2",
+      "h3": "20px / line-height 1.3",
+      "body_large": "18px / line-height 1.6",
+      "body": "16px / line-height 1.6",
+      "small": "14px / line-height 1.5"
+    }
+  },
+
+  "spacing_system": {
+    "scale": [4, 8, 12, 16, 20, 24, 32, 48, 64, 96, 120],
+    "section_vertical_desktop": "96-120px",
+    "section_vertical_mobile": "48-64px",
+    "component_gap_desktop": "24-32px",
+    "component_gap_mobile": "16-20px"
+  },
+
+  "interactions": {
+    "button_hover": "Slight lift (translateY(-2px)) + shadow increase",
+    "card_hover": "Border color change to primary, subtle shadow increase",
+    "link_hover": "Underline + color shift to primary-light",
+    "scroll_animations": "Subtle fade-in-up on scroll for section reveals (optional, not required)"
+  },
+
+  "accessibility": {
+    "minimum_tap_target": "48x48px on mobile",
+    "color_contrast": "WCAG AA minimum (4.5:1 for body text)",
+    "focus_states": "Visible focus ring (2px purple-600) on all interactive elements",
+    "alt_text": "All illustrations must have descriptive alt text"
+  },
+
+  "notes_for_dev": [
+    "Start with desktop design, then adapt to mobile using the mobile_structure guidelines",
+    "All illustrations should be SVG or high-quality PNG with transparent backgrounds",
+    "Use CSS Grid for desktop layouts, switch to flexbox column stacks on mobile",
+    "Implement responsive breakpoint at 768px (tablet/mobile)",
+    "Consider using Framer Motion or CSS transitions for subtle scroll animations",
+    "Lazy load illustrations below the fold for performance",
+    "The PublicLayout component should include a professional header with TutorUP logo (purple) and navigation links",
+    "Add a footer with: About, How it Works, Professors, Contact, Terms, Privacy Policy",
+    "Ensure all CTAs use consistent purple-600 background with white text for brand recognition",
+    "The 'professoral vibe' comes from: purple academic color, clean typography, structured layouts, and educational illustration themes",
+    "Mobile sticky CTA should only appear after hero scroll and hide when user scrolls to bottom final CTA",
+    "Consider adding subtle geometric patterns in background sections (optional decorative elements in cream/light purple)"
+  ],
+
+  "performance_considerations": [
+    "Optimize all illustration assets (use SVGO for SVGs)",
+    "Implement responsive images with srcset for different screen sizes",
+    "Lazy load sections below the fold",
+    "Minimize layout shift by reserving space for images",
+    "Use CSS containment for independent sections",
+    "Total page weight target: <500KB on initial load"
+  ]
+}
