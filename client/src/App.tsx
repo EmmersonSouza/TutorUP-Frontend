@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Login from "@/pages/login";
 import RegisterUser from "@/pages/register-user";
+import InviteProfessor from "@/pages/InviteProfessor";
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={RegisterUser} />
+      <Route path="/invite/professor/:token" component={InviteProfessor} />
       <Route component={NotFound} />
     </Switch>
   );

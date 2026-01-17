@@ -1,0 +1,589 @@
+{
+  "route": "/invite/professor/:token",
+  "page_name": "Convite para Professor",
+  "purpose": "Enable invited professors to review their invitation details, understand TutorUP's value proposition, and complete their registration seamlessly. Create a welcoming, professional first impression that converts invites to active professors. Build trust and excitement about joining the platform.",
+
+  "analysis": {
+    "current_problems": [
+      "Generic invite page without platform context",
+      "No explanation of benefits for professors",
+      "Missing trust signals (security, payment guarantee, support)",
+      "No preview of what professor dashboard looks like",
+      "Doesn't highlight earning potential or flexibility",
+      "No testimonials from existing professors",
+      "Form might be overwhelming if all fields at once",
+      "Missing verification of email/phone before full registration",
+      "No clear next steps after accepting invite",
+      "Doesn't show who sent the invite or why they were selected"
+    ],
+    "ux_flaws": [
+      "No distinction between invite details and registration flow",
+      "Can't preview platform features before committing",
+      "No option to ask questions or contact support before accepting",
+      "Missing information about payment terms, schedule flexibility",
+      "No way to decline invite gracefully",
+      "Unclear if they can start teaching immediately or need approval",
+      "No indication of required documents or verification steps"
+    ],
+    "ui_inconsistencies": [
+      "Would need to match TutorUP's professoral brand aesthetic",
+      "Should feel welcoming yet professional",
+      "Need to balance marketing copy with functional registration"
+    ]
+  },
+
+  "design_strategy": {
+    "visual_identity": "Split-screen design: Left = TutorUP value proposition with illustrations and benefits. Right = Invite details + registration form. Purple (#5B21B6) primary, cream (#FFF7ED) accents. Professional, academic, trustworthy aesthetic.",
+
+    "layout_approach": "Desktop: Fixed left panel with branding/benefits, scrollable right panel with invite + registration. Mobile: Vertical scroll, value props → invite details → registration form.",
+
+    "component_hierarchy": "Invite validation → Welcome hero → Value proposition → Invite details → Benefits list → Registration form (multi-step) → Success confirmation",
+
+    "registration_flow": "After accepting invite: 4-step wizard (Personal Info → Professional Background → Subjects & Pricing → Availability Preview → Success)",
+
+    "illustration_strategy": "3 custom flat illustrations: (1) Professor with students (hero), (2) Flexible schedule/earnings icons, (3) Success/welcome celebration.",
+
+    "mobile_differences": "Vertical scroll layout. Benefits as collapsible accordion. Sticky CTA button. Form as bottom sheet or separate page after accept."
+  },
+
+  "desktop_structure": {
+    "viewport": "1440px optimal, split-screen layout",
+    "layout": "Grid grid-cols-[480px_1fr], min-h-screen",
+
+    "sections": [
+      {
+        "name": "Left Panel - Value Proposition (Fixed)",
+        "layout": "Fixed left panel, bg-purple-900, text-white, p-48px, flex flex-col justify-between, min-h-screen",
+        "components": [
+          {
+            "element": "Branding & Hero",
+            "structure": [
+              "Top section:",
+              "Logo (TutorUP, white, 120px width, mb-48px)",
+              "Illustration: Professor with students, teaching scene (320x240px, mb-32px)",
+              "H1: 'Ensine. Inspire. Ganhe.' (40px, bold, white, mb-16px)",
+              "Subtitle: 'Junte-se à nossa comunidade de professores e transforme vidas através da educação.' (18px, purple-100, line-height-1.6, mb-32px)"
+            ]
+          },
+          {
+            "element": "Key Benefits Grid",
+            "structure": [
+              "Grid gap-24px mb-48px",
+              "Benefit 1:",
+              "  - Icon: DollarSign (cream, 32px, mb-12px)",
+              "  - Title: 'Ganhos Flexíveis' (18px, bold, white, mb-8px)",
+              "  - Text: 'Defina seu próprio valor-hora e receba pagamentos garantidos semanalmente.' (14px, purple-200)",
+              "Benefit 2:",
+              "  - Icon: Calendar (cream, 32px)",
+              "  - Title: 'Horários Flexíveis' (18px, bold)",
+              "  - Text: 'Você controla sua disponibilidade. Ensine quando e onde quiser.' (14px, purple-200)",
+              "Benefit 3:",
+              "  - Icon: Users (cream, 32px)",
+              "  - Title: 'Alunos Dedicados' (18px, bold)",
+              "  - Text: 'Conectamos você com alunos realmente interessados em aprender.' (14px, purple-200)",
+              "Benefit 4:",
+              "  - Icon: Shield (cream, 32px)",
+              "  - Title: 'Suporte Total' (18px, bold)",
+              "  - Text: 'Equipe disponível 24/7 para ajudar em qualquer situação.' (14px, purple-200)"
+            ]
+          },
+          {
+            "element": "Social Proof",
+            "structure": [
+              "Stats row (flex gap-24px, mb-24px):",
+              "  - Stat 1: '500+' (28px, bold, cream) + 'Professores Ativos' (12px, purple-200)",
+              "  - Stat 2: '10.000+' (28px, bold, cream) + 'Aulas Realizadas' (12px, purple-200)",
+              "  - Stat 3: '4.9★' (28px, bold, cream) + 'Avaliação Média' (12px, purple-200)",
+              "Testimonial (light purple bg-purple-800, rounded-12px, p-16px):",
+              "  - Quote: '\"Ensinar na TutorUP me deu a flexibilidade que eu precisava. Excelente plataforma!\"' (14px, italic, purple-100)",
+              "  - Author: '— Profa. Ana Silva, Matemática' (12px, purple-200, mt-8px)"
+            ]
+          }
+        ]
+      },
+
+      {
+        "name": "Right Panel - Invite & Registration (Scrollable)",
+        "layout": "Scrollable panel, bg-white, p-48px, max-w-640px, mx-auto",
+
+        "components": [
+          {
+            "element": "Invite Validation State",
+            "structure": [
+              "Loading state (while validating token):",
+              "  - Centered spinner (purple)",
+              "  - Text: 'Validando convite...' (16px, gray-600)",
+              "Invalid token state:",
+              "  - Icon: AlertCircle (red, 48px, center)",
+              "  - H2: 'Convite Inválido' (28px, bold, gray-900, center, mt-24px, mb-12px)",
+              "  - Text: 'Este link de convite expirou ou é inválido. Entre em contato com quem lhe enviou.' (16px, gray-600, center, mb-24px)",
+              "  - Button: 'Voltar para Home' (purple btn, center)",
+              "Expired token state:",
+              "  - Icon: Clock (yellow, 48px)",
+              "  - H2: 'Convite Expirado' (28px, bold)",
+              "  - Text: 'Este convite expirou. Solicite um novo convite.' (16px, gray-600)",
+              "  - Button: 'Solicitar Novo Convite' (purple btn) or 'Contatar Suporte' (outline btn)"
+            ]
+          },
+
+          {
+            "element": "Valid Invite - Welcome Section",
+            "structure": [
+              "Status badge (top, inline-flex):",
+              "  - 'Convite Válido' (green-600 bg, white text, 12px, px-12px, py-6px, rounded-full, mb-24px)",
+              "H1: 'Você foi convidado!' (36px, bold, purple-900, mb-16px)",
+              "Subtitle: 'Complete seu cadastro para começar a ensinar na TutorUP.' (18px, gray-600, mb-32px)",
+              "Invite details card (cream bg, rounded-16px, p-24px, mb-32px):",
+              "  - Icon: Mail (purple, 32px, mb-16px)",
+              "  - Label: 'Convidado por' (12px, uppercase, gray-600, mb-4px)",
+              "  - Value: '{inviterName}' (18px, bold, gray-900, mb-16px) (if admin: 'Equipe TutorUP')",
+              "  - Email: '{inviteEmail}' (16px, gray-700, mb-8px)",
+              "  - Expiration: 'Válido até: {expirationDate}' (14px, gray-600)",
+              "Call-to-action:",
+              "  - Large button: 'Aceitar Convite e Cadastrar' (full-width, 56px, purple-600 bg, white text, rounded-12px, shadow-md, mb-12px)",
+              "  - Secondary link: 'Recusar convite' (14px, gray-600, center, hover:underline)"
+            ]
+          },
+
+          {
+            "element": "Registration Form - Step 1: Personal Info",
+            "structure": [
+              "Shown after 'Aceitar Convite' clicked",
+              "Progress indicator (top, mb-32px):",
+              "  - 4 steps: Pessoal → Profissional → Matérias → Confirmação",
+              "  - Active: purple-600, Completed: green-600, Pending: gray-300",
+              "Form section:",
+              "H2: 'Informações Pessoais' (28px, bold, purple-900, mb-24px)",
+              "Fields (all required):",
+              "  - Nome completo (text input, pre-filled from invite if available)",
+              "  - Email (text input, disabled, pre-filled from invite, verified badge)",
+              "  - Telefone (tel input with mask: (XX) XXXXX-XXXX)",
+              "  - Data de nascimento (date picker, must be 18+)",
+              "  - CPF (text input with mask: XXX.XXX.XXX-XX, real-time validation)",
+              "  - Endereço (expandable section):",
+              "    • CEP (auto-fill address via ViaCEP API)",
+              "    • Rua, Número, Complemento, Bairro, Cidade, Estado (auto-filled)",
+              "  - Foto de perfil (optional, file upload, circle crop preview, max 2MB)",
+              "Validation:",
+              "  - Real-time CPF validation (format + checksum)",
+              "  - Phone format validation",
+              "  - Age check (>= 18 years)",
+              "Navigation:",
+              "  - Button: 'Continuar' (purple, full-width, 48px, disabled until valid) → Step 2",
+              "  - Link: 'Voltar' (gray-600, 14px, center, mt-12px) → Back to invite details"
+            ]
+          },
+
+          {
+            "element": "Registration Form - Step 2: Professional Background",
+            "structure": [
+              "Progress: Step 2 active",
+              "H2: 'Experiência Profissional' (28px, bold, purple-900, mb-24px)",
+              "Fields:",
+              "  - Formação acadêmica (select):",
+              "    • Options: Ensino Superior Completo, Ensino Superior Cursando, Pós-Graduação, Mestrado, Doutorado",
+              "  - Área de formação (text input, e.g., 'Matemática', 'Letras', 'Engenharia')",
+              "  - Instituição de ensino (text input, university/college name)",
+              "  - Anos de experiência lecionando (number input, 0-50)",
+              "  - Biografia (textarea, 200-500 chars):",
+              "    • Placeholder: 'Conte um pouco sobre sua experiência e metodologia de ensino...'",
+              "    • Character counter: '{count}/500'",
+              "  - Upload de documentos (optional but recommended):",
+              "    • Label: 'Comprovante de formação (diploma, certificado)' (PDF/Image, max 5MB)",
+              "    • Drag-drop zone or file picker",
+              "    • Preview uploaded file name + size",
+              "    • Note: 'Professores com documentos verificados recebem selo de confiança' (12px, blue-600, icon: Info)",
+              "Navigation:",
+              "  - Button: 'Continuar' (purple, full-width) → Step 3",
+              "  - Link: 'Voltar' → Step 1"
+            ]
+          },
+
+          {
+            "element": "Registration Form - Step 3: Subjects & Pricing",
+            "structure": [
+              "Progress: Step 3 active",
+              "H2: 'Matérias e Valores' (28px, bold, purple-900, mb-24px)",
+              "Subjects selection:",
+              "  - Label: 'Quais matérias você pode ensinar?' (16px, bold, gray-900, mb-12px)",
+              "  - Multi-select checkboxes (grid-cols-2, gap-12px):",
+              "    • Common subjects: Matemática, Português, Física, Química, Biologia, História, Geografia, Inglês, Espanhol, Redação, etc.",
+              "    • Each checkbox: Purple border when checked, checkmark icon",
+              "  - Custom subject input: 'Adicionar outra matéria' (text input + add button)",
+              "Pricing per hour:",
+              "  - Label: 'Defina seu valor-hora' (16px, bold, gray-900, mb-12px)",
+              "  - Currency input: 'R$ {value}' (large, 24px, purple-900)",
+              "  - Slider (range R$ 30 - R$ 200, step 5, default R$ 60)",
+              "  - Helper text: 'Valor médio na plataforma: R$ 65/hora' (14px, gray-600, icon: Info)",
+              "  - Note: 'Você pode ajustar valores individuais por matéria depois' (12px, gray-500)",
+              "Teaching preferences (optional):",
+              "  - Checkbox: 'Aceito aulas presenciais' (if checked, will need location later)",
+              "  - Checkbox: 'Aceito aulas online' (default checked)",
+              "Navigation:",
+              "  - Button: 'Continuar' (purple, full-width) → Step 4 (if at least 1 subject + price set)",
+              "  - Link: 'Voltar' → Step 2"
+            ]
+          },
+
+          {
+            "element": "Registration Form - Step 4: Review & Confirm",
+            "structure": [
+              "Progress: Step 4 active",
+              "H2: 'Revise seus dados' (28px, bold, purple-900, mb-24px)",
+              "Summary cards (each with edit button):",
+              "  - Card 1: Personal Info",
+              "    • Cream bg, rounded-12px, p-20px, mb-16px",
+              "    • Profile photo preview (64px circle) + Name + Email + Phone + CPF (masked)",
+              "    • Edit button (top-right, icon: Pencil, purple-600) → Back to Step 1",
+              "  - Card 2: Professional",
+              "    • Degree + Area + Institution + Years experience",
+              "    • Bio preview (truncated if long)",
+              "    • Edit button → Step 2",
+              "  - Card 3: Subjects & Pricing",
+              "    • List of selected subjects (pills, purple bg)",
+              "    • Hourly rate: 'R$ {rate}/hora' (20px, bold, green-600)",
+              "    • Teaching modes: Online/Presencial icons",
+              "    • Edit button → Step 3",
+              "Terms acceptance (mb-24px):",
+              "  - Checkbox (required): 'Li e concordo com os Termos de Uso e Política de Privacidade' (14px)",
+              "  - Links to terms open in new tab",
+              "  - Checkbox (required): 'Autorizo a TutorUP a verificar meus documentos e informações' (14px)",
+              "Next steps info (light blue bg, rounded-12px, p-16px, mb-24px):",
+              "  - Icon: Info (blue)",
+              "  - Title: 'Próximos passos após cadastro' (14px, bold, blue-900, mb-8px)",
+              "  - List:",
+              "    • 'Definir sua disponibilidade de horários'",
+              "    • 'Cadastrar dados bancários para recebimento'",
+              "    • 'Aguardar aprovação da equipe (até 48h)'",
+              "    • 'Começar a receber solicitações de aulas!'",
+              "Navigation:",
+              "  - Button: 'Finalizar Cadastro' (full-width, 56px, purple-600 bg, white text, disabled until terms checked)",
+              "  - Link: 'Voltar' → Step 3"
+            ]
+          },
+
+          {
+            "element": "Success State",
+            "structure": [
+              "Shown after successful registration",
+              "Center-aligned content",
+              "Illustration: Celebration/welcome (240x240px, mb-32px)",
+              "Icon: CheckCircle (green-600, 64px, center, mb-16px)",
+              "H1: 'Cadastro Concluído!' (36px, bold, purple-900, center, mb-16px)",
+              "Subtitle: 'Bem-vindo à TutorUP, {professorName}!' (20px, gray-700, center, mb-32px)",
+              "Info card (cream bg, rounded-16px, p-24px, mb-32px):",
+              "  - Title: 'O que acontece agora?' (18px, bold, purple-900, mb-16px)",
+              "  - Steps (vertical timeline):",
+              "    • Step 1: 'Defina sua disponibilidade' (Pendente badge)",
+              "    • Step 2: 'Cadastre seus dados bancários' (Pendente badge)",
+              "    • Step 3: 'Aguarde aprovação' (Estimativa: 24-48h)",
+              "    • Step 4: 'Comece a dar aulas!'",
+              "CTA buttons (flex flex-col gap-12px):",
+              "  - Primary: 'Configurar Disponibilidade' (purple btn, full-width, 48px) → /prof/disponibilidade",
+              "  - Secondary: 'Ir para Dashboard' (outline btn, full-width, 48px) → /prof/dashboard",
+              "Support link:",
+              "  - 'Precisa de ajuda? Fale com nosso suporte' (14px, purple-600, center, mt-16px, hover:underline)"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "mobile_structure": {
+    "viewport": "375px - 768px",
+    "key_differences": [
+      "Vertical scroll layout (no split-screen)",
+      "Value proposition as collapsible accordion",
+      "Sticky header with TutorUP logo",
+      "Sticky bottom CTA button",
+      "Form steps as full-screen pages with back button",
+      "Progress indicator in sticky header",
+      "Benefits as swipeable carousel"
+    ],
+
+    "sections": [
+      {
+        "name": "Mobile Header",
+        "layout": "Sticky top-0, bg-white, border-b, px-16px, py-12px, z-50",
+        "components": [
+          {
+            "element": "Header Content",
+            "structure": [
+              "Flex justify-between items-center",
+              "Logo (TutorUP, purple, 100px width)",
+              "If in form: Progress indicator (4 dots, current purple, completed green, pending gray)"
+            ]
+          }
+        ]
+      },
+
+      {
+        "name": "Mobile Hero Section",
+        "layout": "px-20px, py-32px, bg-purple-900, text-white",
+        "components": [
+          {
+            "element": "Hero Content",
+            "structure": [
+              "Illustration: Professor teaching (240x180px, center, mb-24px)",
+              "H1: 'Ensine. Inspire. Ganhe.' (28px, bold, white, center, mb-12px)",
+              "Subtitle: 'Transforme vidas através da educação.' (16px, purple-100, center, mb-24px)",
+              "Stats row (flex gap-16px, justify-center, mb-24px):",
+              "  - Compact stats: '500+ Professores', '10k+ Aulas', '4.9★' (14px)",
+              "Expand benefits button:",
+              "  - 'Ver Benefícios' (outline white btn, full-width, 40px)",
+              "  - On click: Expand benefits accordion below"
+            ]
+          },
+          {
+            "element": "Benefits Accordion (Collapsible)",
+            "structure": [
+              "Initially collapsed",
+              "When expanded: Vertical list of 4 benefits",
+              "Each benefit: Icon (cream) + Title (16px, bold) + Text (14px, purple-200, mb-16px)",
+              "Collapse button: 'Ocultar' (14px, purple-200, center, underline)"
+            ]
+          }
+        ]
+      },
+
+      {
+        "name": "Mobile Invite Details",
+        "layout": "px-20px, py-32px, bg-white",
+        "components": [
+          {
+            "element": "Invite Card",
+            "structure": [
+              "Same as desktop but full-width",
+              "Status badge, H1, Subtitle, Invite details card, CTA button",
+              "Accept button: Sticky bottom (fixed bottom-0, bg-white, p-16px, shadow-lg, z-40)",
+              "  - 'Aceitar e Cadastrar' (purple btn, full-width, 48px)",
+              "Decline link: Below button (center, 14px, gray-600)"
+            ]
+          }
+        ]
+      },
+
+      {
+        "name": "Mobile Registration Form Steps",
+        "layout": "Each step as full-screen page with back navigation",
+        "components": [
+          {
+            "element": "Step Page Template",
+            "structure": [
+              "Header: Back button + Progress dots + Step title",
+              "Scrollable content: px-20px, py-24px",
+              "Form fields (same as desktop but full-width, larger touch targets)",
+              "Sticky bottom bar:",
+              "  - 'Continuar' button (purple, full-width, 48px)",
+              "  - If Step 1: 'Voltar' → Invite details",
+              "  - If Step 2-4: 'Voltar' → Previous step"
+            ]
+          }
+        ]
+      },
+
+      {
+        "name": "Mobile Success Screen",
+        "layout": "Full-screen, px-20px, py-32px, bg-white",
+        "components": [
+          {
+            "element": "Success Content",
+            "structure": [
+              "Same as desktop but vertical stack",
+              "Illustration smaller (200x200px)",
+              "Text center-aligned",
+              "CTA buttons full-width with larger touch targets (48px each)",
+              "Support link at bottom"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
+  "illustrations": {
+    "total_needed": 3,
+    "style_guide": "Flat geometric design, purple/cream/green palette, teaching/welcoming theme.",
+
+    "illustration_1": {
+      "name": "Professor Teaching Hero",
+      "description": "Professor with students in classroom or online setting. Welcoming, inspiring, educational feel. Books, laptop, happy students.",
+      "prompt": "A modern flat-style illustration of professor teaching students. Geometric professor figure with glasses and students, classroom elements (books, laptop, whiteboard), inspiring learning symbols. Color palette: purple, cream, coral, green accents. Minimalist welcoming educational theme, no gradients, soft shadows, inspiring composition.",
+      "dimensions": "320x240px (desktop), 240x180px (mobile)"
+    },
+
+    "illustration_2": {
+      "name": "Flexible Earnings",
+      "description": "Professor with flexible schedule icons (calendar, clock) and money/earnings symbols. Freedom, flexibility, financial benefits.",
+      "prompt": "A modern flat-style illustration showing professor with calendar and earnings symbols. Geometric professor, floating calendar, clock, money icons, flexibility indicators, schedule customization symbols. Color palette: purple, green, cream, gold accents. Minimalist flexibility earnings theme, no gradients, soft shadows, empowering composition.",
+      "dimensions": "240x200px"
+    },
+
+    "illustration_3": {
+      "name": "Success Celebration",
+      "description": "Celebration scene with professor, confetti, checkmark, welcome symbols. Achievement, completion, beginning of journey.",
+      "prompt": "A modern flat-style illustration of celebration scene. Geometric professor with raised arms, confetti, checkmarks, welcome banner, achievement symbols, starting journey indicators. Color palette: purple, green, cream, gold. Minimalist celebratory welcome theme, no gradients, soft shadows, joyful composition.",
+      "dimensions": "240x240px (desktop), 200x200px (mobile)"
+    }
+  },
+
+  "color_palette": {
+    "primary_purple": "#5B21B6",
+    "accent_coral": "#FB7185",
+    "success_green": "#10B981",
+    "warning_yellow": "#F59E0B",
+    "error_red": "#EF4444",
+    "background_cream": "#FFF7ED",
+    "background_white": "#FFFFFF",
+    "dark_purple": "#312E81",
+    "text_primary": "#1F2937",
+    "text_secondary": "#6B7280",
+    "border_light": "#E5E7EB"
+  },
+
+  "typography": {
+    "font_display": "Plus Jakarta Sans",
+    "font_body": "Inter",
+    "scale_desktop": {
+      "h1": "36px / 1.2",
+      "h2": "28px / 1.3",
+      "subtitle": "18px / 1.5",
+      "body": "16px / 1.6",
+      "caption": "14px / 1.4",
+      "small": "12px / 1.4"
+    },
+    "scale_mobile": {
+      "h1": "28px / 1.2",
+      "h2": "24px / 1.3",
+      "subtitle": "16px / 1.5",
+      "body": "14px / 1.6",
+      "caption": "13px / 1.4",
+      "small": "12px / 1.4"
+    }
+  },
+
+  "invite_validation_logic": {
+    "token_check": [
+      "On page load: Extract token from URL param",
+      "POST /api/convites/validate with token",
+      "Backend checks: token exists, not used, not expired",
+      "If valid: Return invite details (email, inviterName, expirationDate)",
+      "If invalid: Return error code (INVALID, EXPIRED, ALREADY_USED)",
+      "Frontend shows appropriate state based on response"
+    ],
+    "expiration_policy": "Invites valid for 7 days from creation",
+    "security": "Token is UUID v4, one-time use, expired after acceptance or 7 days"
+  },
+
+  "registration_flow_logic": {
+    "step_1_personal": [
+      "Email pre-filled and disabled (from invite)",
+      "CPF validation: Format check + digit verification algorithm",
+      "Phone validation: Must match (XX) XXXXX-XXXX pattern",
+      "Age check: Calculate from birthdate, must be >= 18",
+      "CEP auto-fill: Fetch from ViaCEP API on blur, populate address fields",
+      "Photo upload: Client-side resize to max 800x800px, compress to <500KB before upload",
+      "On Continue: Validate all fields, POST /api/professores/register/step1, save draft to localStorage"
+    ],
+    "step_2_professional": [
+      "Biografia char counter: Live update, red if <200 or >500",
+      "Document upload: Accept .pdf, .jpg, .png, max 5MB",
+      "Client-side validation: File size, file type",
+      "On Continue: POST /api/professores/register/step2, update draft"
+    ],
+    "step_3_subjects": [
+      "Subjects: Must select at least 1",
+      "Pricing: Slider updates currency input in real-time",
+      "Custom subject: Add button appends to subjects list",
+      "On Continue: POST /api/professores/register/step3, update draft"
+    ],
+    "step_4_review": [
+      "Display all collected data from steps 1-3",
+      "Edit buttons: Navigate back to specific step, preserve other data",
+      "Terms checkboxes: Must check both to enable submit",
+      "On Submit: POST /api/professores/register/finalize with invite token",
+      "Backend: Create Professor record, mark invite as used, create User with role='professor'",
+      "Return JWT token, auto-login, redirect to success screen"
+    ],
+    "draft_saving": "Save form state to localStorage after each step completion, restore if user refreshes page"
+  },
+
+  "interactions": {
+    "accept_invite_click": "Scroll to registration form, show Step 1, focus first input",
+    "decline_invite_click": "Show confirm dialog, if yes: POST /api/convites/decline, show thank you message",
+    "step_navigation": "Validate current step, save to backend + localStorage, transition to next/prev step with slide animation",
+    "edit_button_click": "Navigate to specific step, highlight edited field, preserve other step data",
+    "terms_checkbox": "Enable submit button only when both checked",
+    "cep_input_blur": "Fetch from ViaCEP, populate address fields, show loading spinner during fetch",
+    "photo_upload": "Show preview, file name, file size, remove button to clear",
+    "subject_add": "Append to list, show as pill with remove button",
+    "pricing_slider": "Update currency input in real-time, debounce backend save (500ms)",
+    "form_validation": "Real-time validation on blur, show error messages below fields, prevent submit if errors exist"
+  },
+
+  "error_handling": {
+    "invalid_token": "Show invalid state with back to home button",
+    "expired_token": "Show expired state with request new invite button",
+    "already_used_token": "Show 'This invite has already been used. Please login.' with login link",
+    "network_error_validation": "Show error toast, retry button, check internet connection",
+    "form_field_error": "Show field-specific error message below input, red border, prevent continue",
+    "cpf_invalid": "'CPF inválido. Verifique os dígitos.'",
+    "age_under_18": "'Você deve ter pelo menos 18 anos para se cadastrar como professor.'",
+    "cep_not_found": "'CEP não encontrado. Preencha manualmente.'",
+    "file_too_large": "'Arquivo muito grande. Máximo: {maxSize}MB.'",
+    "registration_failed": "Show error modal with retry option, preserve form data, contact support link"
+  },
+
+  "accessibility": {
+    "focus_visible": "2px purple-600 outline on all interactive elements",
+    "keyboard_navigation": "Tab through form fields, Enter to submit/continue, Escape to cancel dialogs",
+    "screen_reader": "Announce step changes, form errors, success messages. Label all inputs properly",
+    "aria_labels": "Progress: 'Step 1 of 4: Personal Information', Buttons: 'Continue to next step', 'Edit personal information'",
+    "color_contrast": "WCAG AA compliance, white text on purple-900 (contrast ratio >7:1)",
+    "form_validation_announcements": "Announce errors to screen readers when validation fails",
+    "mobile_touch_targets": "Minimum 48x48px for all buttons and interactive elements"
+  },
+
+  "notes_for_dev": [
+    "Token validation: GET /api/convites/:token on component mount",
+    "Multi-step form state: useState for current step (1-4), useReducer for form data across steps",
+    "Draft saving: Save to localStorage after each step, key: 'prof-invite-draft-{token}'",
+    "Restore draft: Check localStorage on mount, if exists: prompt 'Continue where you left off?'",
+    "CPF validation: Implement CPF checksum algorithm or use library like 'cpf-cnpj-validator'",
+    "CEP API: Fetch from https://viacep.com.br/ws/{cep}/json/",
+    "Photo upload: Use client-side compression library (browser-image-compression)",
+    "Form validation: React Hook Form + Zod schemas for each step",
+    "Step transition: Framer Motion or CSS transitions for smooth step changes",
+    "Terms links: Open /terms and /privacy in new tab",
+    "Success redirect: After 3 seconds auto-redirect to /prof/disponibilidade or show manual button",
+    "Analytics: Track invite acceptance rate, step abandonment (which step users drop off)",
+    "Email verification: Consider sending verification email with code (future enhancement)",
+    "Social proof: Fetch real stats from backend for professor count, class count, rating",
+    "Testimonial: Rotate between 3-5 real professor testimonials",
+    "Invite sender name: If invite.userId is admin, show 'Equipe TutorUP', else fetch user name"
+  ],
+
+  "performance_considerations": [
+    "Lazy load ViaCEP only when CEP field is interacted with",
+    "Compress uploaded images on client-side before upload (reduce network usage)",
+    "Debounce form field validation (300ms) to avoid excessive re-renders",
+    "Memoize illustration components to avoid re-rendering",
+    "Code-split registration form steps (lazy load step components)",
+    "Target page weight: <250KB initial load (with illustrations)",
+    "Optimize illustrations: SVG format, gzip compression"
+  ],
+
+  "future_enhancements": [
+    "Video intro: Short welcome video from TutorUP team explaining platform",
+    "Live chat: Support chat widget for questions before accepting",
+    "Referral code: Allow professors to invite other professors with referral bonus",
+    "Social login: Option to import info from LinkedIn for professional background",
+    "Calendar integration: Import availability from Google Calendar",
+    "Sample lesson: Require uploading a sample lesson plan or teaching video",
+    "Background check: Optional background check for verified badge",
+    "Onboarding tour: Interactive tour of dashboard after registration",
+    "Email drip campaign: Follow-up emails guiding through setup steps if incomplete",
+    "Multi-language: Support for English/Spanish invites for international professors"
+  ]
+}
